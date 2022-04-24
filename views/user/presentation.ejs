@@ -158,7 +158,7 @@
 
     //const socket = io('http://localhost:3000')
 
-    var socket = io('https://ecommerceblog.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
+    var socket = io('https://newblogecomm.herokuapp.com//', { transports: ['websocket', 'polling', 'flashsocket'] });
     socket.emit('join-room', room, message => {
         console.log(message)
     })

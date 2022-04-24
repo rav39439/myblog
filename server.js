@@ -104,7 +104,7 @@ var formidable = require('formidable');
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-     origin: "https://ecommerceblog.herokuapp.com",
+     origin: "https://newblogecomm.herokuapp.com/",
      // origin: "http://localhost:3000",
       credentials: true
     }
@@ -437,7 +437,7 @@ console.log(req.body.email)
             subject:"signup successful",
             html:`<h2>${req.body.name}! Thanks for registering on our site</h2>
             <h4>Please verify your mail to continue</h4>
-            <a href="https://ecommerceblog.herokuapp.com/verify-email?token=${token}">verify your email</a>
+            <a href="https://newblogecomm.herokuapp.com/verify-email?token=${token}">verify your email</a>
             `
         }
         mytransporter.sendMail(mailOptions,function(error,info){
