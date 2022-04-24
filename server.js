@@ -104,8 +104,8 @@ var formidable = require('formidable');
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-     //origin: "https://newblogecomm.herokuapp.com/",
-      origin: "http://localhost:3000",
+     origin: "https://newblogecomm.herokuapp.com/",
+      //origin: "http://localhost:3000",
       credentials: true
     }
   })

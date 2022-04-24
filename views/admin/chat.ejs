@@ -65,8 +65,8 @@ margin-left: 170px;
 
 
 <script>
-   const socket = io('http://localhost:3000')      
-    //const socket = io('https://newblogecomm.herokuapp.com', { transports: ['websocket', 'polling', 'flashsocket'] });
+   //const socket = io('http://localhost:3000')      
+    const socket = io('https://newblogecomm.herokuapp.com', { transports: ['websocket', 'polling', 'flashsocket'] });
     
     let roomid=document.getElementById('roomid').innerText
     let username=document.getElementById('username').innerText
