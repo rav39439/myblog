@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include ('header') %>
+
+
+
+</head>
+
+<body>
+<div>
+
+    <% users.forEach(function(user){ %>
+       
+        <ul>
+           
+            <li data=<%=user.username %> id=<%=user._id %> >
+                <%=user.username %>
+              click here to send request
+            </li>
+        </ul>
+        
+
+    <%})%>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+$("li").on('click', function() {
+     
+    var mydata = $(this).attr("data");
+    var myid = $(this).attr("id");
+     alert(myid)
+    $.ajax({
+        type: "POST",
+        url: "/sendrequest",
+        data: {data:mydata,id:myid},
+       
+        success: function (response) {
+            
+        }
+    });
+})
+
+
+</script>

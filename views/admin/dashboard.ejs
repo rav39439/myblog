@@ -1,0 +1,408 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="blog.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        
+
+       
+    </head>
+
+    <style>
+
+
+.new2{
+}
+.new3{
+  
+}
+#new6{
+  
+}
+
+#new7{
+
+}
+#new8{
+
+}
+
+#new9{
+
+}
+
+
+@media only screen and (max-width: 500px) {
+  #new6{
+  display:none;
+}
+
+.new2{
+ 
+width: 400px;
+}
+.new3{
+ 
+width: 300px;
+overflow: scroll;
+}
+#new7{
+  margin-left:790px;
+  width: 300px;
+
+}
+
+#new8{
+  margin-top:100px;
+  overflow:scroll;
+  width: 280px;
+  height:250px;
+  margin-left: 790px ;
+  font-size: 10px;
+}
+
+#new9{
+
+  margin-left:790px;
+  width:300px;
+}
+
+table.test td {
+  
+  margin: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 5px;
+}
+
+table.test {
+  border-collapse: separate;
+  border-spacing: 1px;
+  *border-collapse: expression('separate', cellSpacing='3px');
+}
+
+}
+
+table.test td {
+  
+  margin: 12px 12px 12px 12px;
+  padding: 12px 12px 12px 12px;
+}
+
+table.test {
+  border-collapse: separate;
+  border-spacing: 10px;
+  *border-collapse: expression('separate', cellSpacing='10px');
+}
+    
+    </style>
+
+
+<%- include('header.ejs') %>
+
+
+      <div class="container-fluid"style="width:920px" >
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row" id="new6">
+                            <div class="col-xl-3 col-md-6" >
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Success Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"id="new7">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Area Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Bar Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        <div class="card mb-4"id="new8">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                All Users
+                               
+
+                            <div class="card-body ">
+                                <table id="datatablesSimple">
+                                    <tr>
+                                        <tr>
+                                            <th  class="ty px-4" >Name</th>
+                                            <th  class="ty px-4" >Position</th>
+                                            <th class="ty px-4" >email</th>
+                                            <th class="ty px-4"  >Age</th>
+                                            <th class="ty px-4"  >image</th>
+                                          
+                                          
+                                        </tr>
+                                      </tr>
+                                   
+                                    <tr style="margin-left: 40px;">
+                                      
+                                        <% users.forEach(function (user){ %>
+
+                                        <tr>
+                                            <td class="ty px-4"><%= user.username%></td>
+                                            <td class="ty px-4"><%=user.username%></td>
+                                            <td class="ty px-4"><%=user.email%></td>
+                                            <td class="ty px-4" ><%=user.age%></td>
+                                            <td class="ty px-4" ><img src="/image/<%=user.image%>" alt=""style="height:70px;width:80px"></td>
+                                            
+                                        </tr>
+                                        <% }) %>
+                                       
+                                       
+                                     
+                                      
+                                    </tr>
+                                </table>
+
+
+                               
+                            </div>
+
+                       
+                      
+                    </div>
+                  </div>
+                <div id="mydata"style="display:none"><%=mydata%></div>
+                <div id="datas"style="display:none"><%=datas%></div>
+                <div id="new9">
+                  <%- include('footer.ejs') %>
+           
+                </div>   
+            </div>
+         
+     
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        
+     
+        <script >
+let a=[];
+let b=[];
+let a1=[];
+let b1=[];
+document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+if(document.getElementById("mydata")){
+let mydata=document.getElementById("mydata").innerText;
+let datas=document.getElementById("datas").innerText;
+
+Mydata = JSON.parse(mydata)
+for(let i=0;i<Mydata.length;i++){
+
+    a.push(Mydata[i]._id)
+    b.push(Mydata[i].total)
+}
+console.log(a)
+console.log(b)
+
+datas = JSON.parse(datas)
+for(let i=0;i<datas.length;i++){
+
+    a1.push(datas[i]._id)
+    b1.push(datas[i].total)
+}
+console.log(a1)
+console.log(b1)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Area Chart Example
+var ctx = document.getElementById("myAreaChart");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels:a1,
+    datasets: [{
+      label: "Sessions",
+      lineTension: 0.3,
+      backgroundColor: "rgba(2,117,216,0.2)",
+      borderColor: "rgba(2,117,216,1)",
+      pointRadius: 5,
+      pointBackgroundColor: "rgba(2,117,216,1)",
+      pointBorderColor: "rgba(255,255,255,0.8)",
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+      pointHitRadius: 50,
+      pointBorderWidth: 2,
+      data: b1,
+    }],
+  },
+  
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'subscribers'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 6
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 10,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+
+
+
+        </script>
+        <script >
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+
+
+
+
+
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart");
+var myLineChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: a,
+    datasets: [{
+      label: "Posts",
+      backgroundColor: "rgba(2,117,216,1)",
+      borderColor: "rgba(2,117,216,1)",
+      data: b,
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'month'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 6
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 10,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+
+
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    
+
+
+
+</body>
+</html>

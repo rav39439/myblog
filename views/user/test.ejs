@@ -1,0 +1,140 @@
+
+<%- include("header") %>
+
+<br>
+    <br>
+
+    <div class="container">
+        <h1 class="mt-4 mb-3">
+          myvlog
+
+        </h1>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Blog Home2</li>
+        </ol>
+
+        <div class="row">
+<div class="col-lg-8">
+    <% if(post.image) { %>
+        <img class="img-fluid rounded" src="/<%= post.image %> " alt="">
+        <% } else { %>
+            <img class="img-fluid rounded" src="http://placehold.it/1200x400" alt="">
+            <% } %>
+
+        <hr>
+        <p>Posted on January 1, 2017 at 1200 PM</p>
+        <hr>
+
+        <p class="lead">
+            <%= post.content %>
+        </p>
+
+        <hr>
+
+        <div class="card my-4">
+                <h5 class="card-header">Leave a comment</h5>
+                <div class="card-body">
+                    <form method="POST" action="/do-comment">
+                        <input type="hidden" name="post_id" value="/<%= post._id %>">
+
+                        <div class="form-group">
+                            <input class="form-control" name="username" id="username">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" name="comment"
+                                id="comment"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">submit</button>
+                    </form>
+                </div>
+            </div>
+            <% if(post.comments) { %>
+                <% post.comments.forEach(function(comment){ %>
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <%= comment.username %>
+                    </h5>
+                    <%= comment.comment %>
+                </div>
+            </div>
+            <% }) %>
+            <% } %>
+</div>
+
+
+
+
+<div class="col-md-4">
+        <div class="card mb-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="search for">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button">Go!</button>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card my-4">
+            <h5 class="card-header">Categories</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#">web design</a>
+                            </li>
+                            <li>
+                                <a href="#">Html</a>
+                            </li>
+                            <li>
+                                <a href="#">Freebies</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#">web javascript</a>
+                            </li>
+                            <li>
+                                <a href="#">css</a>
+                            </li>
+                            <li>
+                                <a href="#">Tutorials</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card my-4">
+
+            <h5 class="card-header">Side Widget</h5>
+            <div class="card-body">
+                You can put anything inside these widgets.They are easy to use,and feature the new Bootsrap
+                4 card containers!
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+      <%- include("footer") %>

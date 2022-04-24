@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    
+<%- include('header') %> 
+
+    <form action="/newmakeorder"method="POST">
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Enter the username</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"name="username">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">contact no</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter contact no"name="contactno">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+        
+        <div class="form-group">
+            <label for="exampleInputEmail1">enter  address</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter address"name="address">
+            <small id="emailHelp" class="form-text text-muted">is applicable when you are ordering an item kindly write null if you are booking hotel</small>
+
+          </div>
+        
+        <div class="form-group">
+            <label for="exampleInputEmail1">Product name</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter product name"name="productname">
+          </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Quantity required</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter quantity"name="quantity">
+            <small id="emailHelp" class="form-text text-muted">applicable when you are ordering product kindly make it 0 if you are booking.</small>
+
+          </div>
+
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">No of rooms to be booked</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter quantity"name="quantity">
+            <small id="emailHelp" class="form-text text-muted">applicable when you are booking room kindly make it 0 if you are ordering item.</small>
+
+          </div>
+        <div class="form-group">
+           
+            <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter quantity"name="userid" value=<%=userid%>>
+          </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter quantity"name="postid"value=<%=postid%>>
+          </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter quantity"name="productid"value=<%=productid%>>
+          </div>
+
+<button type="submit"class="btn btn-primary">save</button>
+    </form>
+</body>
+</html>

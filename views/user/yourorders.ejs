@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+
+<style>
+table.test td {
+  
+  margin: 12px 12px 12px 12px;
+  padding: 12px 12px 12px 12px;
+}
+
+table.test {
+  border-collapse: separate;
+  border-spacing: 10px;
+  *border-collapse: expression('separate', cellSpacing='10px');
+}
+
+
+
+
+</style>
+<body>
+    <% if(typeof(user.yourorders)!='undefined'){ %> 
+
+
+
+        <table class="test">
+<tr>
+    <th>userid</th>
+<th>orderplacedid</th>
+<th>userplacedid</th>
+<th>contactno</th>
+<th>productname</th>
+
+<th>status</th>
+<th>take action</th>
+</tr>
+
+       
+        <% user.yourorders.forEach(function(elem,index){%>
+            <tr>
+
+                <td><p id="ownerid<%=index%>"><%=elem.ownerid%></p></td>
+                <td><p id="userplacedid<%=index%>"><%=elem._id%></p></td>
+                <td><p id="ownerplacedid<%=index%>"><%=elem.ownerpl%></p></td>
+                <td><p id="address<%=index%>"><%=elem.contactno%></p></td>
+                <td><p id="product<%=index%>"><%=elem.productname%></p></td>
+                
+                <td><p id="status<%=index%>"><%=elem.status%></p></td>
+    
+                <td><button id="delete<%=index%>" style="height:70;width:100">delete</button></td>
+    
+            
+                
+    
+            </tr>
+        <% }) %>
+
+    </table>
+        <% } %> 
+
+
+
+
+        <script>
+
+for(let i=0;i<4;i++){
+
+
+document.getElementById("delete"+i).addEventListener("click",function(e){
+        
+       alert("deleting")
+    let ownerid=document.getElementById("ownerid"+i).innerText
+       let userplacedid=document.getElementById("userplacedid"+i).innerText
+       let ownerplacedid=document.getElementById("ownerplacedid"+i).innerText
+      alert(ownerid) 
+      alert(userplacedid) 
+      alert(ownerplacedid) 
+ var xhr = new XMLHttpRequest();
+alert("Dsafasfga")
+xhr.open("POST","/removeorder", true);
+
+xhr.onreadystatechange = function (result) {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+ 
+                    // Print received data from server
+                   alert("done")
+ 
+                }
+            };
+xhr.setRequestHeader("Content-Type", "application/json");
+
+
+
+
+//var data = JSON.stringify({});
+ 
+ // Sending data with the request
+ xhr.send(JSON.stringify({
+    "ownerid":ownerid,
+    "ownerplacedid":ownerplacedid,
+    "userplacedid":userplacedid, 
+
+
+ }));
+       
+  
+  
+  })
+
+}
+
+
+
+
+            
+            </script>
+            
+</body>
+</html>

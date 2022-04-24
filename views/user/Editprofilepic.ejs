@@ -1,0 +1,132 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+    
+  
+    <head>
+
+        
+    
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+               
+        </head>
+    
+        <br>
+        <br>
+        <br>
+      
+    
+<%- include('header') %>
+<body>
+
+
+    <form onsubmit=" dochangeprofilepic(this)" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"  id="submitform"type="button"onclick="showdialog(this)">
+            Upload image
+        </button>
+        <br>
+        <br>
+    </div>
+    <input type="submit" value="updateimage" class="btn btn-primary btn-block">
+</form>
+
+   
+
+   
+
+
+
+    <script>
+function showdialog(data){
+   let myid=data.id
+    $("#myModal").modal("show")
+
+}
+
+    </script>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">
+            Upload Image
+            </h4>
+            <button type="button"class="close"data-dismiss="modal"aria-hidden="true">
+                x
+            </button>
+        </div>       
+       
+        <div class="modal-body">
+            <form method="POST" action="" enctype="multipart/form-data" id="form-upload">
+            <div class="form-group">
+
+                <input type="hidden" name="image" value="<%=image %>">
+                <div class="form-group">
+    
+
+                <input type="file" name="file" id="file" class="form-control">
+            </div>
+            <input type="submit"class="btn btn-success" value="Upload">
+            </form>
+          
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
+
+function dochangeprofilepic(form){
+        var formData={ image:imagePath};
+        alert("pos")
+        $.ajax({
+            url:"/do-edit-profilepic",
+            method:"POST",
+            data:formData,
+success:function(response){
+    alert(response.message)
+}
+        });
+
+
+        return false;
+
+}
+
+
+var imagePath="";
+$("#form-upload").on("submit",function(e){
+  
+e.preventDefault()
+
+
+
+$.ajax({
+  url: "/do-updateprofilepic",
+  type: "POST",
+  data: new FormData(this),
+  contentType: false,
+  cache:false,
+  processData: false,
+  success:function(response){
+   
+ // alert(response)
+  
+    imagePath=response;
+        
+    $("#myModal").modal("hide")
+  }
+})
+//}
+})
+</script>

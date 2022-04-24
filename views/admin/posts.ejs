@@ -1,0 +1,1008 @@
+<!doctype html>
+<html>
+
+<%- include ('header') %>
+
+
+<head>
+    <title>jQuery Form Example</title>
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+  
+</head>
+
+
+
+
+<style>
+#new23{
+
+}
+
+@media only screen and (max-width: 600px) {
+
+#new23{
+    margin-left:800px;
+    width: 230px;
+}
+
+
+}
+</style>
+<body>
+
+<!----------------------------------------------------------------------------------------->
+<div id="new21"style="width:900px;margin-top:100px" >
+<div id="new23">
+<% if(adminrule){ %> 
+
+<select class="form-select" aria-label="Default select example"id="menu">
+    <option selected>select the type</option>
+    <option value="products">products</option>
+    <option value="events">events</option>
+    <option value="posts">posts</option>
+    <option value="hotels">hotels</option>
+    <option value="fooditems">food and restaurants</option>
+  </select>
+
+
+
+    <div class="container-fluid">
+        <form id="myform" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Title</label>
+                <input name="title" class="form-control" id="name" placeholder="Title" />
+    
+            </div>
+            <div class="form-group">
+                <label>type</label>
+                <input readonly name="type" class="form-control" id="type" placeholder="Title" value="posts" />
+    
+            </div>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"  id="submitform"type="button">
+                Upload image
+            </button>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea name="content" class="form-control" id="content" placeholder="Title"></textarea>
+              
+            </div>
+            <button type="submit" class="btn btn-success" id="mysubmit">
+                Submit
+              </button>
+        </form>
+    </div>
+
+
+
+
+
+  <div class="container-fluid">
+    <form  id="myform1" method="POST"  enctype="multipart/form-data"style="display:none">
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title" class="form-control" id="name1" placeholder="Title" />
+
+        </div>
+        <div class="form-group">
+            <label>type</label>
+            <input readonly name="type1" class="form-control" id="type1" placeholder="Title" value="products" />
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label>price</label>
+            <input name="price" class="form-control" id="price" placeholder="Title" />
+
+        </div>
+        <div class="form-group">
+            <label>Company</label>
+            <input name="company" class="form-control" id="company" placeholder="Title" />
+
+        </div>
+        <div class="form-group">
+            <label>functions</label>
+            <input name="funct" class="form-control" id="funct" placeholder="Title" />
+
+        </div>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal1"  id="#myModal1"type="button"onclick="showdialog(this)">
+            Upload image
+        </button>
+        <div class="form-group">
+            <label>Other detail1</label>
+            <textarea name="detail1" class="form-control" id="detail1" placeholder="Title"></textarea>
+          
+        </div>
+        <div class="form-group">
+            <label>Other detail2</label>
+            <textarea name="detail2" class="form-control" id="detail2" placeholder="Title"></textarea>
+          
+        </div>
+        <button type="submit" class="btn btn-success" id="mysubmit">
+            Submit
+          </button>
+    </form>
+</div>
+
+
+
+<div class="container-fluid">
+    <form  id="myform2" method="POST"  enctype="multipart/form-data"style="display:none">
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title" class="form-control" id="name2" placeholder="Title" />
+
+        </div>
+
+
+        <div class="form-group">
+            <label>type</label>
+            <input readonly name="type2" class="form-control" id="type2" placeholder="Title" value="events" />
+
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input name="place" class="form-control" id="place" placeholder="Title" />
+
+        </div>
+        <div class="form-group">
+            <label>Other details</label>
+            <textarea name="detail" class="form-control" id="details" placeholder="Title"></textarea>
+          
+        </div>
+        <div class="form-group">
+            <label>about</label>
+            <textarea name="about" class="form-control" id="about" placeholder="Title"></textarea>
+          
+        </div>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal2"  id="#myModal2"type="button"onclick="showdialog1(this)">
+            Upload image
+        </button>
+        <div class="form-group">
+            <label>Time</label>
+            <input type="datetime-local" id="timing" name="timing">
+          
+        </div>
+        <button type="submit" class="btn btn-success" id="mysubmit">
+            Submit
+          </button>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <form   id="myform3" method="POST"  enctype="multipart/form-data"style="display:none">
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title" class="form-control" id="name3" placeholder="Title" />
+
+        </div>
+
+        <div class="form-group">
+            <label>type</label>
+            <input readonly name="type3" class="form-control" id="type3" placeholder="Title" value="hotels" />
+
+        </div>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal3"  id="#myModal3"type="button"onclick="showdialog2(this)">
+            Upload image
+        </button>
+
+
+        <div class="form-group">
+            <label>about</label>
+            <textarea name="about" class="form-control" id="about1" placeholder="Title"></textarea>
+          
+        </div>
+        <div class="form-group">
+            <label>Number of rooms</label>
+            <input type="number" class="form-control" id="rooms" name="rooms" placeholder="Title" />
+          
+        </div>
+        <div class="form-group">
+            <label>facilities</label>
+            <input type="text" class="form-control" id="facilities1" name=facilities1 placeholder="Title" />
+          
+        </div>
+        <div class="form-group">
+            <label>facilities</label>
+            <input type="text" class="form-control" id="facilities2" name=facilities2 placeholder="Title" />
+          
+        </div>
+        <button type="submit" class="btn btn-success" id="mysubmit">
+            Submit
+          </button>
+    </form>
+</div>
+<div class="container-fluid">
+    <form   id="myform4" method="POST"  enctype="multipart/form-data"style="display:none">
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title" class="form-control" id="name3" placeholder="Title" />
+
+        </div>
+
+        <div class="form-group">
+            <label>type</label>
+            <input readonly name="type4" class="form-control" id="type3" placeholder="Title" value="fooditems" />
+
+        </div>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal4"  id="#myModal4"type="button"onclick="showdialog3(this)">
+            Upload image
+        </button>
+
+
+        <div class="form-group">
+            <label>about</label>
+            <textarea name="about" class="form-control" id="about2" placeholder="Title"></textarea>
+          
+        </div>
+        <div class="form-group">
+            <label>items</label>
+            <input type="number" class="form-control" id="items" name="items" placeholder="Title" />
+          
+        </div>
+        <div class="form-group">
+            <label>location</label>
+            <input type="text" class="form-control" id="location" name=location placeholder="Title" />
+          
+        </div>
+        <div class="form-group">
+            <label>categories</label>
+            <input type="text" class="form-control" id="categories" name=categories placeholder="Title" />
+          
+        </div>
+        <button type="submit" class="btn btn-success" id="mysubmit">
+            Submit
+          </button>
+    </form>
+</div>
+
+
+<% } %> 
+
+
+<% if(adminrule){ %> 
+<h3>Posts</h3>
+    <table class="table">
+        <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+  
+    <% posts.forEach(function (post){ %>
+        <% if(post.type=="post"){ %> 
+            <% if(post.username==username){ %> 
+          
+        <tr>
+<td><%= post.title %></td>
+<td><%= post.content %></td>
+<td>
+    <img src="/image/<%=post.image%>" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit/<%= post._id %>" class="btn btn-warning btn-sm">Edit</a>
+</td>
+
+        </tr>
+        <% } %> 
+        <% } %> 
+   <% }) %>
+ 
+    </table>
+
+    <h3>Products</h3>
+    <table class="table">
+        <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+
+   
+    <% posts.forEach(function (post){ %>
+        <% if(post.type=="products"){ %> 
+         
+        <tr>
+<td><%= post.title %></td>
+<td><%= post.detail1 %></td>
+<td>
+    <img src="/image/<%= post.image %>" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-products/<%=post._id%>" class="btn btn-warning btn-sm">Edit</a>
+</td>
+
+        </tr>
+<% } %> 
+   <% }) %>
+   
+    </table>
+
+    <h3>events</h3>
+    <table class="table">
+        <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+
+   
+    <% posts.forEach(function (post){ %>
+        <% if(post.type=="events"){ %> 
+          
+        <tr>
+<td><%= post.title %></td>
+<td><%= post.about %></td>
+<td>
+    <img src="<%= post.image %>" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-events/<%=post._id%>" class="btn btn-warning btn-sm">Edit</a>
+</td>
+
+        </tr>
+        <% } %> 
+   <% }) %>
+
+
+   
+    </table>
+
+    <h3>Hotels and residence</h3>
+    <table class="table">
+        <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+    <% posts.forEach(function (post){ %>
+        <% if(post.type=="hotels"){ %> 
+          
+        <tr>
+<td><%= post.title %></td>
+<td><%= post.about %></td>
+<td>
+    <img src="/image/<%= post.image %>" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-hotels/<%=post._id%>" class="btn btn-warning btn-sm">Edit</a>
+</td>
+
+        </tr>
+        <% } %> 
+   <% }) %>
+
+
+
+
+    </table>
+
+
+    <h3>food and restaurants</h3>
+    <table class="table">
+        <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+    <% posts.forEach(function (post){ %>
+        <% if(post.type=="fooditems"){ %> 
+          
+        <tr>
+<td><%= post.title %></td>
+<td><%= post.about %></td>
+<td>
+    <img src="/image/<%= post.image %>" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-fooditems/<%=post._id%>" class="btn btn-warning btn-sm">Edit</a>
+</td>
+
+        </tr>
+        <% } %> 
+   <% }) %>
+    </table>
+
+
+
+
+    <% } %> 
+
+<!--------------------------------------------------------------------------->
+</div>
+</div>
+    <script>
+
+function showdialog(data){
+    $(data.id).show()
+}
+function showdialog1(data){
+    $(data.id).show()
+}
+function showdialog2(data){
+    $(data.id).show()
+}
+function showdialog3(data){
+    $(data.id).show()
+}
+let p=document.getElementById("jj")
+
+
+document.getElementById("menu").addEventListener("change",function(e){
+
+console.log(e.target.value)
+
+if(e.target.value=="posts"){
+   
+    document.getElementById("myform").style.display="block"
+document.getElementById("myform3").style.display="none"
+document.getElementById("myform2").style.display="none"
+document.getElementById("myform1").style.display="none"
+document.getElementById("myform4").style.display="none"
+}
+if(e.target.value=="none"){
+   
+    document.getElementById("myform").style.display="none"
+document.getElementById("myform3").style.display="none"
+document.getElementById("myform2").style.display="none"
+document.getElementById("myform1").style.display="none"
+document.getElementById("myform4").style.display="none"
+}
+
+       
+//document.getElementById("addproduct").addEventListener("click",function(e){
+if(e.target.value=="products"){
+    
+document.getElementById("myform1").style.display="block"
+document.getElementById("myform3").style.display="none"
+document.getElementById("myform2").style.display="none"
+document.getElementById("myform").style.display="none"
+document.getElementById("myform4").style.display="none"
+}
+
+
+
+        
+
+//document.getElementById("addevents").addEventListener("click",function(e){
+if(e.target.value=="events"){
+    document.getElementById("myform2").style.display="block"
+    document.getElementById("myform1").style.display="none"
+    document.getElementById("myform").style.display="none"
+    document.getElementById("myform3").style.display="none"
+    document.getElementById("myform4").style.display="none"
+}
+
+
+
+if(e.target.value=="hotels"){
+    document.getElementById("myform3").style.display="block"
+    document.getElementById("myform2").style.display="none"
+    document.getElementById("myform1").style.display="none"
+    document.getElementById("myform").style.display="none"
+    document.getElementById("myform4").style.display="none"
+}
+if(e.target.value=="fooditems"){
+    document.getElementById("myform4").style.display="block"
+    document.getElementById("myform2").style.display="none"
+    document.getElementById("myform1").style.display="none"
+    document.getElementById("myform3").style.display="none"
+    document.getElementById("myform").style.display="none"
+}
+
+})
+
+
+
+var socket = io('https://ecommerceblog.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
+//var imagepath=""
+     $(document).ready(function () {
+     
+    $("#myform").on("submit",function(e){
+     e.preventDefault()
+     alert("DSsfsf") 
+    var formData = {
+      title: $("#name").val(),
+      type: $("#type").val(),
+     content: $("#content").val(),
+     image: imagePath,
+  
+    };
+    alert(formData.image)
+  
+        $.ajax({
+            type: "POST",
+            url: '/do-post',
+            data: formData,
+            success: function(response)
+            {
+              
+  
+                // user is logged in successfully in the back-end
+                // let's redirect
+               // alert(imagePath)
+                alert(response.text)
+               
+              formData._id=response._id
+             // var socket=io()
+              socket.emit("new_post",formData)
+
+                  
+           }
+       });
+     });
+
+
+
+
+        $("#myform1").on("submit",function(e){
+     e.preventDefault()
+          
+    var formData = {
+
+        //files:$("input[type=file]").val(),
+        title:$("#name1").val(),
+        price:$("#price").val(),
+        details1:$("#detail1").val(),
+        details2:$("#detail2").val(),
+        company:$("#company").val(),
+        type:$("#type1").val(),
+        funct:$("#funct").val(),
+        images:imagePath1,
+        videos:videoPath1,
+    }
+
+    alert(formData.files)
+  
+        $.ajax({
+            type: "POST",
+            url: '/do-post',
+            data: formData,
+            success: function(response)
+            {
+              
+  
+                // user is logged in successfully in the back-end
+                // let's redirect
+               // alert(imagePath)
+                alert(response.text)
+               
+              formData._id=response._id
+             // var socket=io()
+              socket.emit("new_post1",formData)
+
+                  
+           }
+       });
+     });
+
+
+        $("#myform2").on("submit",function(e){
+     e.preventDefault()
+          
+     var formData = {
+        title:$("#name2").val(),
+        details:$("#details").val(),
+        place:$("#place").val(),
+        timing:$("#timing").val(),
+        type:$("#type2").val(),
+        about:$("#about").val(),
+        images:imagePath2,
+        videos:videoPath2,
+
+
+     }
+  
+        $.ajax({
+            type: "POST",
+            url: '/do-post',
+            data: formData,
+            success: function(response)
+            {
+              
+  
+                // user is logged in successfully in the back-end
+                // let's redirect
+               // alert(imagePath)
+                alert(response.text)
+               
+              formData._id=response._id
+             // var socket=io()
+              socket.emit("new_post2",formData)
+
+                  
+           }
+       });
+     });
+        $("#myform3").on("submit",function(e){
+     e.preventDefault()
+          
+     var formData ={
+        title:$("#name3").val(),
+        rooms:$("#rooms").val(),
+        facilities1:$("#facilities1").val(),
+        facilities2:$("#facilities2").val(),
+        type:$("#type3").val(),
+        about:$("#about1").val(),
+        images:imagePath3,
+        videos:videoPath3,
+     }
+  
+     alert(formData.type)
+        $.ajax({
+            type: "POST",
+            url: '/do-post',
+            data: formData,
+            success: function(response)
+            {
+              
+  
+                // user is logged in successfully in the back-end
+                // let's redirect
+               // alert(imagePath)
+                alert(response.text)
+               
+              formData._id=response._id
+             // var socket=io()
+              socket.emit("new_post3",formData)
+
+                  
+           }
+       });
+     });
+
+
+
+        $("#myform4").on("submit",function(e){
+     e.preventDefault()
+          
+     var formData ={
+        title:$("#name3").val(),
+    location:$("location").val(),
+        items:$("#items").val(),
+        categories:$("#categories").val(),
+        type:$("#type4").val(),
+        about:$("#about2").val(),
+        images:imagePath4,
+        videos:videoPath4,
+     }
+  
+     alert(formData.type)
+        $.ajax({
+            type: "POST",
+            url: '/do-post',
+            data: formData,
+            success: function(response)
+            {
+              
+  
+                // user is logged in successfully in the back-end
+                // let's redirect
+               // alert(imagePath)
+                alert(response.text)
+               
+              formData._id=response._id
+             // var socket=io()
+              socket.emit("new_post3",formData)
+
+                  
+           }
+       });
+     });
+
+
+     document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+
+// $(document).ready(function(){
+   var imagePath="";
+   $("#form-upload").on("submit",function(e){
+     
+e.preventDefault()
+
+// var fd = new FormData();
+//var files = $('#file').prop('files')[0];
+
+
+// if(files.length > 0 ){
+//  fd.append('file',files[0]);
+
+  $.ajax({
+     url: "/do-upload-image",
+     type: "POST",
+     data: new FormData(this),
+     contentType: false,
+     cache:false,
+     processData: false,
+     success:function(response){
+      
+     alert("jhgjgj")
+     
+       imagePath=response;
+           
+       $("#myModal").modal("hide")
+     }
+})
+
+})
+
+
+
+   var imagePath1="";
+   var videoPath1="";
+   $("#form-upload1").on("submit",function(e){
+     
+e.preventDefault()
+
+
+
+  $.ajax({
+     url: "/do-upload-image1",
+     type: "POST",
+     data: new FormData(this),
+     contentType: false,
+     cache:false,
+     processData: false,
+     success:function(response){
+      
+     alert("jhgjgj")
+     
+       imagePath1=response.data;
+       videoPath1=response.videos;
+           
+       $("#myModal1").modal("hide")
+     }
+})
+
+})
+
+
+   var imagePath2="";
+   var videoPath2="";
+   $("#form-upload2").on("submit",function(e){
+     
+e.preventDefault()
+
+
+
+  $.ajax({
+     url: "/do-upload-image1",
+     type: "POST",
+     data: new FormData(this),
+     contentType: false,
+     cache:false,
+     processData: false,
+     success:function(response){
+      
+     alert(response.data)
+     
+       imagePath2=response.data;
+       videoPath2=response.videos;
+           
+       $("#myModal2").modal("hide")
+     }
+})
+
+})
+
+
+   var imagePath3="";
+   var videoPath3="";
+   $("#form-upload3").on("submit",function(e){
+     
+e.preventDefault()
+
+
+
+  $.ajax({
+     url: "/do-upload-image1",
+     type: "POST",
+     data: new FormData(this),
+     contentType: false,
+     cache:false,
+     processData: false,
+     success:function(response){
+      
+     alert("jhgjgj")
+     
+       imagePath3=response.data;
+       videoPath3=response.videos
+           
+       $("#myModal3").modal("hide")
+     }
+})
+
+})
+
+
+   var imagePath4="";
+   var videoPath4="";
+   $("#form-upload4").on("submit",function(e){
+     
+e.preventDefault()
+
+
+
+  $.ajax({
+     url: "/do-upload-image1",
+     type: "POST",
+     data: new FormData(this),
+     contentType: false,
+     cache:false,
+     processData: false,
+     success:function(response){
+      
+     alert("jhgjgj")
+     
+       imagePath4=response.data;
+       videoPath4=response.videos
+        4
+       $("#myModal4").modal("hide")
+     }
+})
+
+})
+
+
+
+
+
+
+});
+
+    </script>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                Upload Image
+                </h4>
+                <button type="button"class="close"data-dismiss="modal"aria-hidden="true">
+                    x
+                </button>
+            </div>       
+           
+            <div class="modal-body">
+                <form method="POST" action="/do-upload-image" enctype="multipart/form-data" id="form-upload">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="form-control">
+                </div>
+                <input type="submit"class="btn btn-success" value="Upload">
+                </form>
+              
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                Upload Image
+                </h4>
+                <button type="button"class="close"data-dismiss="modal"aria-hidden="true">
+                    x
+                </button>
+            </div>       
+           
+            <div class="modal-body">
+                <form method="POST" action="" enctype="multipart/form-data" id="form-upload1">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="form-control" multiple>
+                </div>
+                <input type="submit"class="btn btn-success" value="Upload">
+                </form>
+              
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                Upload Image
+                </h4>
+                <button type="button"class="close"data-dismiss="modal"aria-hidden="true">
+                    x
+                </button>
+            </div>       
+           
+            <div class="modal-body">
+                <form method="POST" action="" enctype="multipart/form-data" id="form-upload2">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="form-control" multiple>
+                </div>
+                <input type="submit"class="btn btn-success" value="Upload">
+                </form>
+              
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                Upload Image
+                </h4>
+                <button type="button"class="close"data-dismiss="modal"aria-hidden="true">
+                    x
+                </button>
+            </div>       
+           
+            <div class="modal-body">
+                <form method="POST" action="" enctype="multipart/form-data" id="form-upload3">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="form-control" multiple>
+                </div>
+                <input type="submit"class="btn btn-success" value="Upload">
+                </form>
+              
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                Upload Image
+                </h4>
+                <button type="button"class="close"data-dismiss="modal"aria-hidden="true">
+                    x
+                </button>
+            </div>       
+           
+            <div class="modal-body">
+                <form method="POST" action="" enctype="multipart/form-data" id="form-upload4">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" class="form-control" multiple>
+                </div>
+                <input type="submit"class="btn btn-success" value="Upload">
+                </form>
+              
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        
+
+      
+
+       </script>
+
+  
+</body>
+</html>
+
+<%- include ('footer') %>
+
+

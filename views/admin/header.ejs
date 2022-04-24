@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+
+.new1{
+  margin-top: 40px;
+  height: 700px ;
+  width:130px;
+  font-size: 14px;
+  display: inline-block;
+}
+.new4{
+
+}
+
+#new9{
+ display: none; 
+}
+#new10{
+  display: none; 
+
+}
+#new11{
+  display: none; 
+
+}
+#new12{
+  display: none; 
+
+}
+
+@media only screen and (max-width: 600px) {
+
+.new1{
+  display: none;
+}
+.new4{
+  width:100px;
+  font-size:10px;
+  text-align:center;
+  padding-right: 20px;
+ 
+}
+#new9{
+ display: block; 
+}
+#new10{
+  display: block; 
+
+}
+#new11{
+  display: block; 
+
+}
+#new12{
+  display: block; 
+
+}
+
+
+
+
+}
+  .nav-item{
+    margin-left: 20px;
+  }
+    #layoutAuthentication {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    #layoutAuthentication #layoutAuthentication_content {
+      min-width: 0;
+      flex-grow: 1;
+    }
+    #layoutAuthentication #layoutAuthentication_footer {
+      min-width: 0;
+    }
+    
+    #layoutSidenav {
+      display: flex;
+    }
+    #layoutSidenav #layoutSidenav_nav {
+      flex-basis: 225px;
+      flex-shrink: 0;
+      transition: transform 0.15s ease-in-out;
+      z-index: 1038;
+      transform: translateX(-225px);
+    }
+    #layoutSidenav #layoutSidenav_content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      flex-grow: 1;
+      min-height: calc(100vh - 56px);
+      margin-left: -225px;
+    }
+    
+    .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
+      transform: translateX(0);
+    }
+    .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 1037;
+      opacity: 0.5;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    @media (min-width: 992px) {
+      #layoutSidenav #layoutSidenav_nav {
+        transform: translateX(0);
+      }
+      #layoutSidenav #layoutSidenav_content {
+        margin-left: 0;
+        transition: margin 0.15s ease-in-out;
+      }
+    
+      .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
+        transform: translateX(-225px);
+      }
+      .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
+        margin-left: -225px;
+      }
+      .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
+        display: none;
+      }
+    }
+    .sb-nav-fixed .sb-topnav {
+      z-index: 1039;
+    }
+    .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
+      width: 225px;
+      height: 100vh;
+      z-index: 1038;
+    }
+    .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
+      padding-top: 56px;
+    }
+    .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
+      overflow-y: auto;
+    }
+    .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+      padding-left: 225px;
+      top: 56px;
+    }
+    
+    #layoutError {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    #layoutError #layoutError_content {
+      min-width: 0;
+      flex-grow: 1;
+    }
+    #layoutError #layoutError_footer {
+      min-width: 0;
+    }
+    
+    .img-error {
+      max-width: 20rem;
+    }
+    
+    .nav .nav-link .sb-nav-link-icon,
+    .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+      margin-right: 0.5rem;
+    }
+    
+    .sb-topnav {
+      padding-left: 0;
+      height: 56px;
+      z-index: 1039;
+    }
+    .sb-topnav .navbar-brand {
+      width: 225px;
+      margin: 0;
+    }
+    .sb-topnav.navbar-dark #sidebarToggle {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .sb-topnav.navbar-light #sidebarToggle {
+      color: #212529;
+    }
+    
+    .sb-sidenav {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      flex-wrap: nowrap;
+    }
+    .sb-sidenav .sb-sidenav-menu {
+      flex-grow: 1;
+    }
+    .sb-sidenav .sb-sidenav-menu .nav {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+    .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading {
+      padding: 1.75rem 1rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .sb-sidenav .sb-sidenav-menu .nav .nav-link {
+      display: flex;
+      align-items: center;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      position: relative;
+    }
+    .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
+      font-size: 0.9rem;
+    }
+    .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-sidenav-collapse-arrow {
+      display: inline-block;
+      margin-left: auto;
+      transition: transform 0.15s ease;
+    }
+    .sb-sidenav .sb-sidenav-menu .nav .nav-link.collapsed .sb-sidenav-collapse-arrow {
+      transform: rotate(-90deg);
+    }
+    .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-nested {
+      margin-left: 1.5rem;
+      flex-direction: column;
+    }
+    .sb-sidenav .sb-sidenav-footer {
+      padding: 0.75rem;
+      flex-shrink: 0;
+    }
+    
+    .sb-sidenav-dark {
+      background-color: #212529;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .nav-link {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
+      color: #fff;
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
+      color: #fff;
+    }
+    .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
+      color: #fff;
+    }
+    .sb-sidenav-dark .sb-sidenav-footer {
+      background-color: #343a40;
+    }
+    
+    .sb-sidenav-light {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .sb-sidenav-menu-heading {
+      color: #adb5bd;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .nav-link {
+      color: #212529;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+      color: #adb5bd;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
+      color: #adb5bd;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .nav-link:hover {
+      color: #0d6efd;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .nav-link.active {
+      color: #0d6efd;
+    }
+    .sb-sidenav-light .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
+      color: #0d6efd;
+    }
+    .sb-sidenav-light .sb-sidenav-footer {
+      background-color: #e9ecef;
+    }
+    
+    .dataTable-wrapper .dataTable-container {
+      font-size: 0.875rem;
+    }
+    
+    .dataTable-wrapper.no-header .dataTable-container {
+      border-top: none;
+    }
+    
+    .dataTable-wrapper.no-footer .dataTable-container {
+      border-bottom: none;
+    }
+    
+    .dataTable-top {
+      padding: 0 0 1rem;
+    }
+    
+    .dataTable-bottom {
+      padding: 0;
+    }
+    
+    .dataTable-top > nav:first-child,
+    .dataTable-top > div:first-child,
+    .dataTable-bottom > nav:first-child,
+    .dataTable-bottom > div:first-child {
+      float: left;
+    }
+    
+    .dataTable-top > nav:last-child,
+    .dataTable-top > div:last-child,
+    .dataTable-bottom > nav:last-child,
+    .dataTable-bottom > div:last-child {
+      float: right;
+    }
+    
+    .dataTable-selector {
+      width: auto;
+      display: inline-block;
+      padding-left: 1.125rem;
+      padding-right: 2.125rem;
+      margin-right: 0.25rem;
+    }
+    
+    .dataTable-info {
+      margin: 7px 0;
+    }
+    
+    /* PAGER */
+    .dataTable-pagination a:hover {
+      background-color: #e9ecef;
+    }
+    
+    .dataTable-pagination .active a,
+    .dataTable-pagination .active a:focus,
+    .dataTable-pagination .active a:hover {
+      background-color: #0d6efd;
+    }
+    
+    .dataTable-pagination .ellipsis a,
+    .dataTable-pagination .disabled a,
+    .dataTable-pagination .disabled a:focus,
+    .dataTable-pagination .disabled a:hover {
+      cursor: not-allowed;
+    }
+    
+    .dataTable-pagination .disabled a,
+    .dataTable-pagination .disabled a:focus,
+    .dataTable-pagination .disabled a:hover {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+    
+    .dataTable-pagination .pager a {
+      font-weight: bold;
+    }
+    
+    /* TABLE */
+    .dataTable-table {
+      border-collapse: collapse;
+    }
+    
+    .dataTable-table > tbody > tr > td,
+    .dataTable-table > tbody > tr > th,
+    .dataTable-table > tfoot > tr > td,
+    .dataTable-table > tfoot > tr > th,
+    .dataTable-table > thead > tr > td,
+    .dataTable-table > thead > tr > th {
+      vertical-align: top;
+      padding: 0.5rem 0.5rem;
+    }
+    
+    .dataTable-table > thead > tr > th {
+      vertical-align: bottom;
+      text-align: left;
+      border-bottom: none;
+    }
+    
+    .dataTable-table > tfoot > tr > th {
+      vertical-align: bottom;
+      text-align: left;
+    }
+    
+    .dataTable-table th {
+      vertical-align: bottom;
+      text-align: left;
+    }
+    
+    .dataTable-table th a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .dataTable-sorter {
+      display: inline-block;
+      height: 100%;
+      position: relative;
+      width: 100%;
+      padding-right: 1rem;
+    }
+    
+    .dataTable-sorter::before,
+    .dataTable-sorter::after {
+      content: "";
+      height: 0;
+      width: 0;
+      position: absolute;
+      right: 4px;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      opacity: 0.2;
+    }
+    
+    .dataTable-sorter::before {
+      bottom: 4px;
+    }
+    
+    .dataTable-sorter::after {
+      top: 0px;
+    }
+    
+    .asc .dataTable-sorter::after,
+    .desc .dataTable-sorter::before {
+      opacity: 0.6;
+    }
+    
+    .dataTables-empty {
+      text-align: center;
+    }
+    
+    .dataTable-top::after,
+    .dataTable-bottom::after {
+      clear: both;
+      content: " ";
+      display: table;
+    }
+    
+    .btn-datatable {
+      height: 20px !important;
+      width: 20px !important;
+      font-size: 0.75rem;
+      border-radius: 0.25
+    }
+    </style>
+
+
+
+
+<body class="sb-nav-fixed">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand ps-3" href='/'id="myprofileimage"><img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50"alt=""></a>
+      <!-- Sidebar Toggle-->
+      <button class="navbar-toggler navbar-toggler-right" type="button"data-toggle="collapse" data-target="#navbarResponsive"aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+<!--navbar dropdown-->
+<div class="collapse navbar-collapse"id="navbarResponsive">
+  <ul class="navbar-nav ml-auto ml-5">
+
+
+    <li class="nav-item">
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    categories
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/home">home</a>
+    <a class="dropdown-item" href="userposts">posts</a>
+    <a class="dropdown-item" href="products">products</a>
+    <a class="dropdown-item" href="hotels">Hotels</a>
+    <a class="dropdown-item" href="events">events</a>
+    <a class="dropdown-item" href="fooditems">fooditems</a>
+  </div>
+</div>
+</li> 
+<!-------------------->
+
+<li class="nav-item">
+      <!-- Navbar Search-->
+      <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="GET" action="/dogetusers">
+          <div class="input-group">
+              <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" name="inputuser"/>
+              <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+          </div>
+      </form>
+    </li> 
+
+    <li class="nav-item">
+
+      <a href="#"onclick="getallmessages()"><i class="fa fa-fw fa-envelope" ></i>  </a>
+    </li> 
+    <li class="nav-item">
+      <a href="/logout">logout</a>
+      </li>
+      <br>
+      <br>
+      <div class="border mt-5 bg-black text-white" style="margin-top:10px;background-color: black;" id="myclass">
+
+      </div>
+      <!-- Navbar-->
+      <li class="nav-item">
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+          <li class="nav-item dropdown">
+             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"onclick="getfriends()"style="width:200px;">
+    Allfriends
+  </a>
+
+  
+
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"style="width:200px;"id="allclasses">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+          </li>
+
+      </ul>
+
+<li class="nav-item" id="new9">
+ 
+    <a class="nav-link" href="/home" >
+      Home
+  </a>
+</li>
+<li class="nav-item" id="new10">
+  
+    <a class="nav-link" href="/mychat">chat</a>
+  
+</li>
+<li class="nav-item"id="new11">
+  <a class="nav-link" href="posts">
+    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    Posts
+</a>
+</li>
+<li class="nav-item" id="new 12">
+  <a class="nav-link" href="dashboard">
+    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    Dashboard
+</a>
+</li>
+
+
+
+
+
+    
+</li>
+      </ul>
+      </div>
+  </nav>
+
+
+
+  <div id="allusers"></div>
+  <div id="sidebar-wrapper bg-light mt-5 "  >
+   
+    <div id="layoutSidenav_nav"class="new1" >
+      <nav class="sb-sidenav accordion sb-sidenav-light">
+    <ul class="sidebar-nav"style="list-style: none;">
+        <li class="sidebar-brand mt-5 mr-4">
+          <a class="nav-link" href="dashboard">
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+            Dashboard
+        </a>
+       
+        </li>
+        <li>
+          <a class="nav-link" href="posts">
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+            Posts
+        </a>
+         
+        </li>
+        <li>
+          <a class="nav-link" href="/mychat">chat</a>
+        </li>
+        <li>
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <li>
+          <a class="nav-link" href="/forgotpassword">Forgot Password</a>
+        </li>
+        <li>
+          <a class="nav-link" href="/home" >
+            Home
+        </a>
+        </li>
+        <li>
+          <a class="nav-link " href="/Editprofilepic"><i class="fas fa-table ml-4"></i>Edit your profilepic</a>
+        </li>
+        <li>
+          <a class="nav-link " href="/presentation"><i class="far fa-file-powerpoint"></i>Conduct presentation</a>
+        </li>
+    </ul>
+    </nav>
+    <!------------>
+  
+  </div>
+  
+
+  <div id="layoutSidenav_content" style="float:right;margin-right: 200px;">
+
+
+
+ 
+      <div>
+   
+   </body>     
+   </html>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+function getallmessages(){
+//let h=localStorage.getItem("myuser")
+   
+    $.ajax({
+        url:"/do-messages",
+        method:"POST",
+        data:{},
+        success:function(response){
+         // alert("getmeessa")
+          console.log("the data is")
+          var data=response.data;
+          console.log(data)
+        
+        let html="";
+        for(let i=0;i<data.length;i++){
+          comments=data[i].comments;
+          for(let j=0;j<comments.length;j++){
+
+            replies=comments[j].replies;
+            if(replies){
+              
+
+
+                          for(let p=0;p<replies.length;p++){
+                            console.log(replies[p]._id)
+if(replies[p].read=="unread"){
+                            html+='<div>'
+                            html+='<ul>';
+                              html+=`<li postid=${data[i]._id} commentid=${comments[j]._id} replyid=${replies[p]._id} onclick="changeread(this)"> ${replies[p].reply} </li>`;
+                              html+='</ul>';
+                              html+='</div>'
+                            }
+                                
+            }
+            }
+          }
+        }
+        //console.log(html)
+         document.getElementById("myclass").innerHTML=html;
+        }
+    })
+    return false;
+//})
+//})
+} 
+
+function changeread(form){
+postid=$(form).attr("postid");
+commentid=$(form).attr("commentid");
+replyid=$(form).attr("replyid");
+console.log(postid)
+console.log(commentid)
+console.log(replyid)
+
+$.ajax({
+        url:"/do-changeread",
+        method:"POST",
+        data:{mypostid:postid,mycommentid:commentid,myreplyid:replyid},
+        success:function(response){
+        
+          alert(response.message)
+          
+}
+})
+    return false;
+//})
+//})
+} 
+
+function getfriends(){
+alert("Dassa")
+  $.ajax({
+        url:"/getusers",
+        method:"GET",
+        success:function(response){
+        if(response.user){
+          let data=response.user
+          let friends=data.friends; 
+          console.log(friends)
+          let html="";
+         // html+='<ul>';
+          for (let i=0;i<friends.length;i++){
+            if(friends[i].status=="pending"){
+
+
+              if(friends[i].sender=="false"){
+
+                html+=`<li data=${friends[i].friendname} ><a class="dropdown-item" href="#!">${friends[i].friendname}<button data=${friends[i].friendname} id=${friends[i]._id} onclick="acceptrequest(this)">pending</button></a></li>`;
+
+              }
+
+              else{
+                html+=`<li data=${friends[i].friendname} ><a class="dropdown-item" href="#!">${friends[i].friendname}<button data=${friends[i].friendname} id=${friends[i]._id}>pending</button></a></li>`;
+
+              }
+html+=``
+          }
+          else{
+
+            html+=`<li ><a class="dropdown-item" href="getpage/${friends[i].friendname}">${friends[i].friendname}</a></li>`
+           }
+          // html+='</ul>';
+           console.log("the html is" +html)
+       document.getElementById("allclasses").innerHTML=html;
+
+       
+
+  //         html+='<ul>';
+  //         friends.forEach(function(friend){
+  //           if(friend.status=="pending"){
+
+
+  // html+='<li data= onclick="acceptrequest(this)">pending</li>';
+
+    
+  //           }
+  //           else{
+
+  //             html+='<li></li>'
+  //           }
+  //         })
+  //         html+='</ul>';
+  //         document.getElementById("allusers").innerHTML=html;
+          
+}
+}
+}
+})
+}
+
+ function acceptrequest(form){
+
+  myname=$(form).attr("data");
+  myid=$(form).attr("id");
+  alert(myid)
+
+  $.ajax({
+        url:"/acceptrequest",
+        method:"POST",
+        data:{name:myname,id:myid},
+        success:function(response){
+        
+          alert(response.message)
+          
+}
+})
+
+ }
+
+
+
+</script>

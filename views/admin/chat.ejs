@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+.new33{
+width: 550px;
+}
+
+@media only screen and (max-width: 600px) {
+
+.new33{
+width: 150px;
+margin-left: 170px;
+
+}
+
+}
+
+
+</style>
+
+
+<%- include('header') %>
+
+
+<body>
+  <div class="bg-light new33"style="margin-top:100px;">
+  <h1 id="roomid"><%=roomid%> </h1>
+  <h1 id="username"><%=username%> </h1>
+  
+  <div id="dd">
+  
+
+  
+  </div>
+  
+  <div id="newimg">
+  
+  </div>
+
+
+
+    <form id="myform"style="margin-top:200px;">
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Enter a message</label>
+            <input type="text" class="form-control" id="password" name="roomid"placeholder="groupid"style="width: 300px;">
+          </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">post a file</label>
+            <input type="file" name="file"accept=".jpg,.png,.jpeg,.jfif"id="file">
+          </div>
+          
+          <button type="submit" class="btn btn-primary" id="info">Submit</button>
+       
+    
+</div>
+
+</div>
+
+</body>
+
+
+<script>
+   const socket = io('http://localhost:3000')      
+    ///const socket = io('https://ecommerceblog.herokuapp.com', { transports: ['websocket', 'polling', 'flashsocket'] });
+    
+    let roomid=document.getElementById('roomid').innerText
+    let username=document.getElementById('username').innerText
+    socket.emit('join-room', roomid, username )
+    socket.on('new_message',function(message){
+        console.log(message)
+    })
+    let html=""
+    
+    $( "#myform" ).submit(function( e ) {
+    e.preventDefault()
+    var chat =e.target.children[0].children[1].value
+    //localStorage.setItem("chat",chat)
+    var fileinfo =e.target.children[1].children[1].files[0]
+    // if(fileinfo){
+    
+    //     Uploaded(fileinfo)
+    // }
+    
+    //------------------------------------------------compressing image----------------------------
+    
+    //let newimg={}
+    const MAX_WIDTH = 700;
+    const MAX_HEIGHT = 600;
+    const MIME_TYPE = "image/jpeg";
+    const QUALITY = 0.9;
+    
+    //const input = document.getElementById("img-input");
+    //input.onchange = function (ev) {
+     //const file = ev.target.files[0]; // get the file
+     if(fileinfo){
+    
+      const blobURL = URL.createObjectURL(fileinfo);
+      const img = new Image();
+      img.src = blobURL;
+      img.onerror = function () {
+        URL.revokeObjectURL(this.src);
+        // Handle the failure properly
+        console.log("Cannot load image");
+      };
+      img.onload = function () {
+        URL.revokeObjectURL(this.src);
+        const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        canvas.toBlob(
+          (blob) => {
+            // Handle the compressed image. es. upload or save in local state
+            displayInfo('Original file', fileinfo);
+            displayInfo('Compressed file', blob);
+            newimg=blob
+            console.log(newimg)
+            console.log(chat)
+            console.log(roomid)
+            console.log(username)
+    
+          
+    
+          
+    //console.log(fileinfo.size)
+    socket.emit("message",roomid,username,chat,blob)
+    
+    
+    
+    
+    
+            
+          },
+          MIME_TYPE,
+          QUALITY
+        );
+       // document.getElementById("root").append(canvas);
+      };
+    }
+    else{
+    blob=""
+    socket.emit("message",roomid,username,chat,blob)
+    
+    }
+    
+    
+    //};
+    
+    function calculateSize(img, maxWidth, maxHeight) {
+      let width = img.width;
+      let height = img.height;
+    
+      // calculate the width and height, constraining the proportions
+      if (width > height) {
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+      }
+      return [width, height];
+    }
+    
+    // Utility functions for demo purpose
+    
+    function displayInfo(label, file) {
+      const p = document.createElement('p');
+      p.innerText = `${label} - ${readableBytes(file.size)}`;
+      //document.getElementById('newimg').append(p);
+    }
+    
+    function readableBytes(bytes) {
+      const i = Math.floor(Math.log(bytes) / Math.log(1024)),
+        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    
+      return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+    }
+    
+    
+    //----------------------------------------------------------------------------------------------------
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //---------------------------------------------------------------------------------------------------------
+    // var base64String = "";
+    // function Uploaded(newdata) {
+    // 	// var file = document.querySelector(
+    // 	// 	'input[type=file]')['files'][0];
+      
+    // //let data="";
+    //     var file=newdata
+    // 	var reader = new FileReader();
+    // 	reader.onload = function () {
+    // 		base64String = reader.result.replace("data:", "")
+    // 			.replace(/^.+,/, "");
+    // 		imageBase64Stringsep = base64String;
+           
+    //        //console.log(base64String)
+    //       ///localStorage.setItem('data',base64String)
+    // 	}
+    //     //console.log(base64String)
+    
+    // 	reader.readAsDataURL(file);
+       
+        
+    // }
+    
+    //----------------------------------------------------------------------------------------------------
+    //document.getElementById('newimg').innerHTML=img
+    //let n=localStorage.getItem('blob')
+    //console.log(n)
+    //image=localStorage.getItem('data')
+    
+    
+    //var encoded=atob(image)
+    //console.log(encoded)
+    
+    // var obj={
+    // "message":chat,
+    // "data":imgdata
+    
+    //console.log(fileinfo)
+    
+    socket.on('newevent',function(username,chat,base64String){
+        if(base64String!=""){
+    console.log("yuoru chat is "+chat)
+            html+=`
+    <div>${username}: ${chat} </div>
+    <img src="data:image/jpeg;base64,${base64String}"" alt="" width="350" 
+         height="500"/>`
+    document.getElementById("dd").innerHTML=html
+    document.getElementById("file").value=""
+    
+    
+        }
+        else{
+    
+            html+=`
+    <div> ${username}:${chat} </div>`
+    
+    document.getElementById("dd").innerHTML=html
+    
+        }
+    
+    
+    
+    
+    })
+    })
+    
+    
+   
+    
+    
+    
+    
+    //console.log(html)
+    
+    // let chat=localStorage.getItem('chat')
+    // let img=localStorage.getItem('data')
+    // console.log(chat)
+    // console.log(img)
+    // socket.emit("message",chat,img)
+    
+    
+    
+    
+    </script>
+</html>

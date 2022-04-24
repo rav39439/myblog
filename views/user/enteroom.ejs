@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <div class="border" style="border-radius: 8px;width: 700px;height:700px">
+<form action="/enteroom" method="POST">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Enter user</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"value=<%=username%> >
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Enter room</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="myroom" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Your pic</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="myimage" aria-describedby="emailHelp" placeholder="Enter email"value=<%=profileimage%> >
+      </div>
+<button type="submit" class="btn btn-primary">enterroom</button>
+</form>
+    </div>
+</body>
+</html>

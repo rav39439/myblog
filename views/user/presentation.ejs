@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <%- include("header") %>
+
+</head>
+
+<body>
+
+    <% if(typeof(room)!='undefined'){ %> 
+        <h4 id="room" >
+
+            <%=room%>
+        </h4>
+        <% } %>
+
+
+    <h1 style="margin-top: 100px;" id="gg">
+
+    </h1>
+
+    <hr>
+    <%if(typeof(profileimage)!='undefined'){%>
+   <p id="myprofile"style="display:none"><%=profileimage%></p>
+<% } %> 
+    <div id="presentationid"></div>
+    <div id="kk" style="margin-top: 200px;">
+
+    </div>
+
+
+
+  
+<div class="container"style="display:inline-flex;margin-top:100px;height:auto" >
+<div class="row">
+    <hr>
+    <div class="border col-lg-4"style="width:300px;height:auto;margin-top:60px;display:inline-block">
+    <button class="btn btn-primary" id="start" >start</button>
+    <button class="btn btn-primary" id="next" >next</button>
+    <button class="btn btn-primary" id="prev" >prev</button>
+    <button class="btn btn-primary" id="close" >close</button>
+
+
+    <div id="dd" style="display:none">
+        <%=username%>
+    </div>
+
+</div>
+
+
+
+
+
+    <div class="col-lg-6 border bg-grey " style="width:500px;height:auto;margin-left:350px;display:inline-block">
+
+        <form action="/multipleuploads" method="POST" id="hj" enctype="multipart/form-data">
+            <div class="form-group" id="tu">
+                <label for="exampleInputEmail1">Enter the info</label>
+                <div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Enter the title</label>
+                <input type="text" name="presentation" /><br>
+            </div>
+            <div class="form-group">
+                <input type="file" name="images" multiple /><br>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+        <button onclick="addinfo(this)">addinfo</button><br>
+    </div>
+
+
+
+    <div class=" border col-lg-2  ml-2" style="display:inline-block;height: auto;margin-left:10px;overflow-y: scroll;">
+
+    <%if(typeof(mydata)!='undefined'){%>
+        <div id="info" style="display:none;">
+            <%=mydata%>
+        </div>
+
+        <%} else{%>
+            <div id="info" style="display:none "></div>
+            <% } %>
+                <% if(typeof(data)!='undefined' ){ %>
+                    <h3>presentations</h3>
+                              <%=username%> 
+                    <% data.forEach(function(elem ,index){ %>
+
+
+
+                        <button id="<%=elem._id%>" dataid="<%elem.title%>" onclick="getdata(this)"
+                            class="btn btn-primary">presentation<%=index%></button>
+
+
+                        <% }) %>
+                            <% } %>
+
+
+                            </div>
+
+
+                              
+
+
+                            </div>
+                        </div>
+                        
+                           
+    <button id="ddd" class="btn btn-primary mt-5"style="width:300px;margin-left:400px">send</button>
+<hr>
+    <div class="border" style="margin-left:400px;margin-top: 60px;">
+<form id="kkk"method="POST">
+<input type="hidden" id="user"name="user" value="<%=username%> ">
+<p>Post your comment here</p>
+<textarea name="comment" id="comment" rows="5"style="width:600px"></textarea>
+<button type="submit"class="btn btn-primary">submit</button>
+</form>
+</div>
+<div id="usercomment"></div>
+
+
+
+
+
+
+
+
+
+</body>
+
+
+<script>
+
+
+    let room = document.getElementById("room").innerText
+//let profileimage=document.getElementById("myprofile").innerText
+    console.log(room)
+    let html1 = ""
+    function addinfo(data) {
+
+        html1 = `<textarea type="text" name=anotherinfo rows=3></textarea>`;
+        document.getElementById("tu").children[1].innerHTML += html1
+    }
+
+
+    //const socket = io('http://localhost:3000')
+
+    var socket = io('https://ecommerceblog.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
+    socket.emit('join-room', room, message => {
+        console.log(message)
+    })
+
+
+    let count = 0
+    let html = ""
+
+
+    let data = document.getElementById("info").innerText
+   
+    let f = []
+    let gj = []
+    let newgj = []
+    let newf = []
+
+    let title=""
+    let newtitle=""
+    //let h=document.getElementById("newdata").value
+    //console.log(h)
+
+    //-------------------------------------data gettiing using ajax-----------------------------------
+    function getdata(info) {
+
+        alert(info.id)
+
+
+        $.ajax({
+            url: "/getmydata",
+            method: "POST",
+            data: { info: info.id },
+            success: function (response) {
+
+
+                //alert(JSON.stringify(response.mdata)) 
+                f = response.mdata.newdata
+                title=response.mdata._id
+                
+                document.getElementById("presentationid").innerText=response.mdata._id
+               
+                gj = JSON.parse(response.mdata.addeddata)
+               
+            }
+        })
+
+    }
+
+
+    //--------------------------------------------------------------------------------------------------
+    //-------------------------------data sending via socket io--------------------------------------
+    document.getElementById("ddd").addEventListener("click", function (e) {
+
+        socket.emit("datasend", f, room)
+
+        socket.emit("ptitle",title,room)
+
+    
+        socket.emit("anotherdata", gj, room)
+
+    
+
+    })
+
+
+    socket.on("givetitle",function(title){
+        newtitle=title
+    })
+    socket.on("datagetting", function (myg) {
+
+        newgj = myg
+        console.log(newgj)
+    })
+
+    socket.on("dataget", function (f) {
+
+        newf = f
+        console.log(newf)
+    })
+    //-----------------------------------------------------------------------------------------------
+
+    //if(data){
+
+    //   newdata=JSON.parse(data)
+    //  for(let i=0;i<newdata.length;i++){
+    //    newf.push(newdata[i].filename)
+    //   }
+    //}
+    //console.log(f)
+
+    //var myarray=['room-1','room-2','room-3','room-4']
+    //let length=myarray.length
+    //console.log(newf)
+    let g = document.getElementById("dd").innerText
+    //if(g=='rav55'){
+    if (newf.length != null) {
+
+        document.getElementById("gg").innerText = "start your presntations"
+
+
+
+
+
+
+        //-----------------------------------starting the activity ---------------------------------------
+
+        document.getElementById("start").addEventListener('click', function (e) {
+
+            // console.log(newf)
+            //console.log(newgj)
+            socket.emit("changeimage", newf[count],newgj[count], room)
+
+
+        })
+
+        //if(typeof(dat)!='undefined'){
+        socket.on("newimage", function (dat,info) {
+
+            console.log(dat)
+            if (dat.mimetype == "image/jpeg") {
+                html = `<img src="/public/presentation/${dat.filename}" class="img-fluid" style="height:1200px;width:1200px"id="image" alt="Responsive image">
+        <br><textarea rows=3>${info}</textarea>`;
+                console.log(html)
+            }
+            else if (dat.mimetype == "video/mp4") {
+                html = `<video width="300" height="300" controls autoplay><source src="/public/presentation/${dat.filename}" type="video/mp4"></video><br>
+<textarea rows=3>${info}</textarea>`
+            }
+            // console.log(data)
+        })
+            document.getElementById('kk').innerHTML = html
+
+
+            //-----------------------------------------------------------------------------------------------
+
+
+            //-------------------------next button clicked---------------------------------------------------
+
+
+            document.getElementById("next").addEventListener('click', function (e) {
+
+                if (count < newf.length - 1) {
+                    console.log(count)
+                    count += 1
+                    socket.emit("changeimage", newf[count],newgj[count] ,room)
+
+
+                }
+                else {
+                    count = 0;
+                    socket.emit("changeimage", newf[count],newgj[count] ,room)
+
+                }
+
+            })
+
+            //if(typeof(dat)!='undefined'){
+
+            socket.on("newimage", function (dat,info) {
+
+                if (dat.mimetype == "image/jpeg") {
+                    console.log(dat.filename)
+                    html = `<img src="/public/presentation/${dat.filename}" class="img-fluid"style="height:1200px;width:1200px" id="image" alt="Responsive image"><br>
+        <textarea rows=3>${info}</textarea>`;
+
+                }
+                else if (dat.mimetype == "video/mp4") {
+                    html = `<video width="300" height="300" controls autoplay>
+  <source src="/public/presentation/${dat.filename}" type="video/mp4"></video><br><textarea rows=3>${info}</textarea>`
+
+
+                }
+
+                document.getElementById('kk').innerHTML = html
+            })
+            //}
+            //---------------------------------------------------------------------------------------------------
+
+            //-----------------------------------prev button clicked-------------------------------------------
+            document.getElementById("prev").addEventListener('click', function (e) {
+
+                if (count < newf.length) {
+                    count -= 1
+
+                    socket.emit("changeimage", newf[count],newgj[count], room)
+
+
+                }
+                if (count < 0) {
+                    console.log("the length is" + newf.length)
+                    count = f.length - 1
+                    socket.emit("changeimage", newf[count],newgj[count], room)
+                }
+
+            })
+
+            //if(typeof(dat)!='undefined'){
+            socket.on("newimage", function (dat) {
+
+                if (data.mimetype == "image/jpeg") {
+                    console.log(dat.filename)
+                    var path = "/public/presentation/" + dat.filename
+                    html = `<img src=${path} class="img-fluid"style="height:1200px;width:1200px" id="image" alt="Responsive image"><br>
+    <textarea rows=3>${newgj[count]}</textarea>`;
+
+                }
+                else if (dat.mimetype == "video/mp4") {
+                    html = `<video width="300" height="300" controls autoplay>
+<source src="/public/presentation/${dat.filename}" type="video/mp4"></video><br>
+<textarea rows=3>${newgj[count]}</textarea>`
+
+
+                }
+
+
+
+
+            })
+            //------------------------------------------------------------------------------------------------
+
+
+      
+        document.getElementById("close").addEventListener('click', function (e) {
+            document.getElementById("image").style.display = "none"
+        })
+    }
+
+    else {
+
+        document.getElementById("gg").innerText = "Upload fiiles to start"
+    }
+
+
+
+
+
+
+    //--------------------------submitting the user comment--------------------------------------
+
+
+    $("#kkk").on('submit',function(e){
+     
+        e.preventDefault()
+
+        console.log(e.target.children[0].value)
+        console.log(e.target.children[1].value)
+var formData={
+   user:e.target.children[0].value,
+   comment:e.target.children[1].value,
+   mytitle:newtitle,
+}
+alert(formData.mytitle)
+
+//alert(formData.mytitle)
+//alert(formData.user)
+//alert(formData.comment)
+
+$.ajax({
+    method:"POST",
+    url:"/roomcomment",
+    data:formData,
+    success:function(response){
+        alert(response.message)
+        socket.emit('roomdata',response.user,response.comment,room)
+    }
+})
+
+})
+
+socket.on("getroom",function(user,comment){
+console.log(user)
+console.log(comment)
+   document.getElementById("usercomment").innerHTML +=
+   `<div class="border bg-light">
+    <p>${user}</p><br>
+   <span><p>${comment}</p></div></span><br><br>`
+})
+
+
+</script>
+
+</html>

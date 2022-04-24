@@ -1,0 +1,138 @@
+<%- include("../user/header") %>
+
+
+
+<head>
+
+  
+        <title>jQuery Form Example</title>
+       
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+        <script src="/socket.io/socket.io.js"></script>
+      
+    
+    
+    <body>
+    
+    
+
+    <style>
+    .img{
+        height:300px;
+        width:300px;
+    }
+    </style>
+</head>
+<div class="container mt-5">
+    <h1 class="mt-5 mb-3" style="margin-top:20px;">Blog home
+    <small>Hotels</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+           
+        </li>
+    </ol>
+    <div id="posts">
+<% posts.forEach(function(post){ %>  
+    <% if(post.type=="hotels"){ %> 
+
+      
+    <div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="#">
+                    <% if(post.image){ %> 
+                    <img class="img-fluid rounded" src="/image/<%= post.image %>" alt="">
+                    
+                    <% } else { %>
+                        <img class="img-fluid rounded" src="http://placehold.it/750x300" alt="">
+                <% } %>
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="card-title"><%=post.title%></h2>
+                <p class="card-text"><%=post.about%></p>
+                <a href="hotels/<%=post._id%>" class="btn btn-primary">Read more &rarr;</a>
+                <p class="user ml-2"> posted by <%=post.username%></p>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <%= post.createdAt %><body>
+            <a href="#">start bootstrap</a>
+       
+    </div>
+</div>
+
+<% } %>
+<% }) %>
+</div>
+
+
+
+
+
+
+
+<ul class="pagination justify-content-center mb-4">
+    <li class="page-item">
+        <a class="page-link" href="#">Never &rarr;</a>
+    </li>
+</ul>
+</div>
+</div>
+
+<script>
+    document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+
+    //const socket = io('https://ecommerceblog.herokuapp.com/')
+    var socket = io('https://ecommerceblog.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
+socket.on("new_post3",function(formData){
+
+    console.log("running")
+var html=""
+html+='<div class="card mb-4">'
+    html+=  '<div class="card-body">'
+        html+=   '<div class="row">'
+            html+= '<div class="col-lg-6">'
+                html+=    '<a href="#">'
+                   
+                        html+=  `<img class="img-fluid rounded" src="/image/${formData.image}" alt="">`
+                    
+                        
+                           
+                           
+                            html+=' </a>'
+                            html+= '</div>'
+                            html+= '<div class="col-lg-6">'
+                                html+= '<h2 class="card-title">'
+                                    html+=   formData.title
+                                    html+=   '</h2>'
+                                html+=  '<p class="card-text">'
+                                    html+= formData.about 
+                                    html+=  ' </p>'
+                                html+=  '<a href="posts/'+formData._id+'" class="btn btn-primary">Read more &rarr;</a>'
+                                html+= ' </div>'
+                                html+= '</div>'
+                                html+='</div>'
+                               
+       
+                                    html+= '</div>'
+                                    html+='</div>'
+                                    $("#posts").prepend(html)
+});
+
+
+
+
+
+</script>
+<%- include('footer') %>
+
+
+
