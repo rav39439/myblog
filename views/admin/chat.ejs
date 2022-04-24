@@ -40,10 +40,7 @@ margin-left: 170px;
   
   </div>
   
-  <div id="newimg">
-  
-  </div>
-
+ 
 
 
     <form id="myform"style="margin-top:200px;">
@@ -68,8 +65,8 @@ margin-left: 170px;
 
 
 <script>
-  // const socket = io('http://localhost:3000')      
-    const socket = io('https://newblogecomm.herokuapp.com', { transports: ['websocket', 'polling', 'flashsocket'] });
+   const socket = io('http://localhost:3000')      
+    //const socket = io('https://newblogecomm.herokuapp.com', { transports: ['websocket', 'polling', 'flashsocket'] });
     
     let roomid=document.getElementById('roomid').innerText
     let username=document.getElementById('username').innerText
@@ -124,15 +121,16 @@ margin-left: 170px;
             displayInfo('Original file', fileinfo);
             displayInfo('Compressed file', blob);
             newimg=blob
-            console.log(newimg)
-            console.log(chat)
-            console.log(roomid)
-            console.log(username)
+           // console.log(newimg)
+          //  console.log(chat)
+          //  console.log(roomid)
+          //  console.log(username)
     
           
     
           
-    //console.log(fileinfo.size)
+    console.log(blob.size)
+    console.log(fileinfo.size)
     socket.emit("message",roomid,username,chat,blob)
     
     

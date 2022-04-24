@@ -104,8 +104,8 @@ var formidable = require('formidable');
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-     origin: "https://newblogecomm.herokuapp.com/",
-     // origin: "http://localhost:3000",
+     //origin: "https://newblogecomm.herokuapp.com/",
+      origin: "http://localhost:3000",
       credentials: true
     }
   })
@@ -675,6 +675,7 @@ if(req.body.type=="posts"){
         "image":image,
         "likers":[],
         "user":[],
+        "comments":[],
     
         
       
@@ -732,6 +733,7 @@ console.log(req.body.images)
         "orders":[],
         "likers":[],
         "user":[],
+        "comments":[],
         "createdAt": now,
         
         
@@ -783,7 +785,7 @@ var videos=JSON.parse(req.body.videos)
         "timing":timing,
         "likers":[],
         "user":[],
-        
+        "comments":[],
         "createdAt": now,
         
         
@@ -832,6 +834,7 @@ var videos=JSON.parse(req.body.videos)
         "products":[],
         "likers":[],
         "user":[],
+        "comments":[],
         "createdAt": now,
         
         
@@ -886,6 +889,7 @@ var videos=JSON.parse(req.body.videos)
         "products":[],
         "likers":[],
         "user":[],
+        "comments":[],
         "createdAt": now,
         
         
@@ -1389,10 +1393,10 @@ if(user==null){
 app.get("/dogetusers",isAuth,function(req,res){
    // res.render("admin/search")
    blog.collection("users").find({
-username:req.query.inputuser
+"username":req.query.inputuser
 
    }).toArray(function(error,users){
-    res.render("admin/search",{"users":users})
+    res.render("admin/search.ejs",{"users":users})
 })
 })
 
@@ -1730,6 +1734,10 @@ blog.collection('posts').updateOne({
         $set:{
             "image":req.body.image
         }
+    },function(err,data){
+        res.json({
+            "message":"done"
+        })
     })
     
 })

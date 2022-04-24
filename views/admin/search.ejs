@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<style>
+    li{
+        list-style: none;
+    }
+</style>
 <head>
 <%- include ('header') %>
 
@@ -8,13 +14,15 @@
 </head>
 
 <body>
-<div>
 
+    
+</div class="bg-light" style="margin-top:400px;">
     <% users.forEach(function(user){ %>
        
-        <ul>
-           
+        <ul style="margin-top:300px">
+            <img class="img-fluid rounded" src="/image/<%= user.image %>" alt="myimage" width="200" height="200" >
             <li data=<%=user.username %> id=<%=user._id %> >
+               
                 <%=user.username %>
               click here to send request
             </li>
