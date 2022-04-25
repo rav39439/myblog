@@ -12,7 +12,6 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="blog.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         
 
@@ -158,7 +157,7 @@ table.test {
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
+                                        No of users by month
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>
@@ -167,7 +166,7 @@ table.test {
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
+                                       Total no of posts published
                                     </div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
@@ -238,6 +237,7 @@ table.test {
         
      
         <script >
+          let c=['jan','feb','march','april','may','june','july','august','sept','oct','november','december']
 let a=[];
 let b=[];
 let a1=[];
@@ -246,21 +246,38 @@ document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rou
 if(document.getElementById("mydata")){
 let mydata=document.getElementById("mydata").innerText;
 let datas=document.getElementById("datas").innerText;
-
+console.log(datas)
 Mydata = JSON.parse(mydata)
-for(let i=0;i<Mydata.length;i++){
-
-    a.push(Mydata[i]._id)
+for(let i=0;i<12;i++){
+if(typeof(Mydata[i])!='undefined'){
+  a.push(c[Mydata[i]._id])
     b.push(Mydata[i].total)
+}else{
+    a.push(c[i])
+    b.push(0)
+  }
+
+    
 }
 console.log(a)
 console.log(b)
 
 datas = JSON.parse(datas)
-for(let i=0;i<datas.length;i++){
 
-    a1.push(datas[i]._id)
+
+
+
+for(let i=0;i<12;i++){
+
+  if(typeof(datas[i])!='undefined'){
+    a1.push(c[datas[i]._id])
     b1.push(datas[i].total)
+  }
+  else{
+    a1.push(c[i])
+    b1.push(0)
+  }
+    
 }
 console.log(a1)
 console.log(b1)
@@ -319,8 +336,7 @@ var myLineChart = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
-        }
+          maxTicksLimit: 12        }
       }],
       yAxes: [{
         ticks: {
@@ -375,7 +391,7 @@ var myLineChart = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: 12
         }
       }],
       yAxes: [{

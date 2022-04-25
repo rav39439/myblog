@@ -223,7 +223,7 @@ app.get("/admin/dashboard",isAuth,function(req,res){
         blog.collection("users").aggregate( [
             {
                 $project: {
-                  month: { $month: "$createdAt" },
+                  month: { $month:"$createdAt"},
                 }
               },
             
@@ -243,9 +243,11 @@ app.get("/admin/dashboard",isAuth,function(req,res){
                     { $group: { _id: "$month", total: { $sum: 1 } } }
 
                 ]).sort({_id:1}).toArray(function(error,data1){
-                let adata = JSON.stringify(data)
+                let adata = JSON.stringify(data1)
+                console.log("the users by month")
+                console.log(data)
 
-    res.render("admin/dashboard",{mydata:adata,users:users,datas:JSON.stringify(data1),currentuserimage:req.session.profileimage})
+    res.render("admin/dashboard",{mydata:adata,users:users,datas:JSON.stringify(data),currentuserimage:req.session.profileimage})
    //console.log(data)
    // console.log(data1)
    // }else{
