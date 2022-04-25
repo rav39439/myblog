@@ -141,7 +141,7 @@ app.use("/public",express.static(__dirname +"/public"))
 
 
  // Create mongo connection
- const conn = mongoose.createConnection(process.env.MONGOURI,{ useNewUrlParser: true ,useUnifiedTopology: true} );
+ const conn = mongoose.createConnection("mongodb+srv://Ravkkrrttyy:xDKSBRRDI8nkn13w@cluster1.2pfid.mongodb.net/blog?retryWrites=true&w=majority",{ useNewUrlParser: true ,useUnifiedTopology: true} );
  
    
 //--------------------------gridfs-------------------------------------------------------------
