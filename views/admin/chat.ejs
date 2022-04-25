@@ -34,6 +34,9 @@ margin-left: 170px;
   <h1 id="roomid"><%=roomid%> </h1>
   <h1 id="username"><%=username%> </h1>
   
+  <div id="er">
+
+  </div>
   <div id="dd">
   
 
@@ -70,10 +73,19 @@ margin-left: 170px;
     
     let roomid=document.getElementById('roomid').innerText
     let username=document.getElementById('username').innerText
+    let newhtml=""
     socket.emit('join-room', roomid, username )
     socket.on('new_message',function(message){
-        console.log(message)
+      console.log(message)
+      //Array.users.forEach(function(elem){
+        newhtml+=`<p>${message}</p>`;
+
+      //})
     })
+    document.getElementById("er").innerHTML=newhtml
+
+
+
     let html=""
     
     $( "#myform" ).submit(function( e ) {
@@ -129,8 +141,9 @@ margin-left: 170px;
           
     
           
-    console.log(blob.size)
-    console.log(fileinfo.size)
+    console.log(blob)
+    console.log(chat)
+    console.log(username)
     console.log(roomid)
     socket.emit("message",roomid,username,chat,blob)
     
