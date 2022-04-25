@@ -1894,6 +1894,7 @@ io.on("connection",function(socket){
       
     socket.on("message",function(roomid,username,chat,blob){
 console.log("sdagagsa")
+room=roomid
         if(blob!=""){
             console.log(blob)
             let buff = new Buffer.from(blob);
@@ -1904,7 +1905,7 @@ console.log("sdagagsa")
         else{
 
            console.log(chat)
-            io.emit('newevent',username,chat,blob)
+            io.to(room).emit('newevent',username,chat,blob)
         }
 
       
