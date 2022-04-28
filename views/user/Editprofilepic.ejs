@@ -24,7 +24,7 @@
 <body>
 
 
-    <form onsubmit=" dochangeprofilepic(this)" method="POST" enctype="multipart/form-data">
+    <form id="myform" method="POST" enctype="multipart/form-data">
     <div class="form-group">
 
         <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"  id="submitform"type="button"onclick="showdialog(this)">
@@ -86,7 +86,8 @@ function showdialog(data){
 <script>
 document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
 
-function dochangeprofilepic(form){
+$("#myform").submit(function(e){
+    e.preventDefault()
         var formData={ image:imagePath};
         alert("pos")
         $.ajax({
@@ -101,7 +102,7 @@ success:function(response){
 
         return false;
 
-}
+})
 
 
 var imagePath="";
@@ -120,7 +121,7 @@ $.ajax({
   processData: false,
   success:function(response){
    
- // alert(response)
+ alert(response)
   
     imagePath=response;
         

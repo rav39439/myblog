@@ -1738,7 +1738,7 @@ blog.collection('posts').updateOne({
         }
     },function(err,data){
         res.json({
-            "message":"done"
+            "message":"done.Kindly login again to see your set picture"
         })
     })
     
