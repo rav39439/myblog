@@ -273,31 +273,6 @@ if(comment.video){
                 $("#comments").prepend(html);
                 //alert("new comment")
 })
-socket.on("new_reply",function(reply){
-var html="";
-html+=' <div class="media mb-4 ml-4">';
-
-   // if(reply.image){
-
-      //  html+='<img class="d-flex mr-3 rounded-circle" src="" alt=""> ';
-
-  //  }
-    //else{
-        html+='<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> ';
-
-  //  }
-    
-    html+='  <div class="media-body" style="margin-left:40px">';
-        html+='<h5 class="mt-0">';
-            html+= reply.name ;
-            html+='</h5>';
-            html+=reply.reply ;
-            html+='  </div>';
-            html+=' </div>';
-
-$("#replies-" + reply.comment_id).append(html)
-})
-
 
 
 
@@ -418,12 +393,12 @@ function showdialogw(data){
                                             <% } %>
                                         </div>
                                             <div class="col-md=3">
-                                                <form method="POST"id="myform2">
-                                                    <input name="post_id"id="post_id" id="mypostid" type="hidden"  value="<%= post._id %>">
-                                                    <input name="comment_email"id="comment_email"type="hidden" value="<%= comment.email %>">
-                                                    <input name="comment_id"id="comment_id"type="hidden" value="<%= comment._id %>">
+                                                <form onsubmit="return doreply(this)">
+                                                    <input name="post_id"id="post_id" id="mypostid"   value="<%= post._id %>">
+                                                    <input name="comment_email"id="comment_email" value="<%= comment.email %>">
+                                                    <input name="comment_id"id="comment_id" value="<%= comment._id %>">
                                                 <div class="form-group">
-                                                    <input name="name" type="hidden" id="username"class="form-control" value="<%= name %>"
+                                                    <input name="name"  id="username"class="form-control" value="<%= name %>"
                                                     placeholder="Enter name">
 
                                                 </div>
@@ -587,29 +562,28 @@ function showdialogw(data){
 
 <script>
 
-$("#myform2").on("submit",function(e){
-        e.preventDefault()
-alert("run")
+function doreply(form){
+       
+
    
      
     var formData = {
-  name: $("#username").val(),
- reply: $("#reply").val(),
- post_id:$("#post_id").val(),
- comment_id:$("#comment_id").val(),
- comment_email:$("#comment_email").val(),
+  name: form.name.value,
+ reply: form.reply.value,
+ post_id:form.post_id.value,
+ comment_id:form.comment_id.value,
+ comment_email:form.comment_email.value,
 
 
 
 };
 
-//alert("ddd")
     $.ajax({
         url:"/do-reply",
         method:"POST",
         data:formData,
         success:function(response){
-          
+           // alert("run")
             alert(response._id)
           formData._id=response._id
           socket.emit("new_reply",formData)
@@ -621,6 +595,31 @@ alert("run")
     return false;
 //})
 //})
+}
+
+socket.on("new_reply",function(reply){
+var html="";
+html+=' <div class="media mb-4 ml-4">';
+
+   // if(reply.image){
+
+      //  html+='<img class="d-flex mr-3 rounded-circle" src="" alt=""> ';
+
+  //  }
+    //else{
+        html+='<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> ';
+
+  //  }
+    
+    html+='  <div class="media-body" style="margin-left:40px">';
+        html+='<h5 class="mt-0">';
+            html+= reply.name ;
+            html+='</h5>';
+            html+=reply.reply ;
+            html+='  </div>';
+            html+=' </div>';
+
+$("#replies-" + reply.comment_id).append(html)
 })
 
 

@@ -602,7 +602,7 @@ console.log(post.image)
 
 app.post("/do-reply",function(req,res){
     var reply_id=ObjectId()
-    console.log(req.body.comment_email)
+   // console.log(req.body.comment_email)
     blog.collection("posts").updateOne({
         "_id":ObjectId(req.body.post_id),
         "comments._id":ObjectId(req.body.comment_id)
@@ -618,6 +618,13 @@ app.post("/do-reply",function(req,res){
                 read:"unread"
             }
         }
+    }, function(err,data){
+        console.log("the rply")
+        console.log(reply_id)
+        res.json({
+            "text":"successfully replied",
+            "_id":reply_id
+        })
     });
         // var mailOptions={
         //     "from":"My Blog",
@@ -1946,6 +1953,7 @@ socket.on('ptitle',function(title,room){
         io.emit("new_comment",comment)
     })
     socket.on("new_reply",function(reply){
+        console.log(reply)
         io.emit("new_reply",reply)
     })
   
@@ -2712,8 +2720,8 @@ next()
 
   app.get('/image/:filename', (req, res) => {
 
-    console.log("mongoimage is run")
-console.log("this is the new which is a file that is loaded"+req.params.filename)
+   // console.log("mongoimage is run")
+//console.log("this is the new which is a file that is loaded"+req.params.filename)
 //--------------------------------------displaying the image---------------------------------------
 //    blog.collection("uploads.chunks").find(
 //        {

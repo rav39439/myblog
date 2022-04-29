@@ -484,7 +484,7 @@ function showdialogw(data){
                                             <% } %>
                                         </div>
                                             <div class="col-md=3">
-                                                <form method="POST"id="myform2">
+                                                <form onsubmit="return doreply(this)">
                                                     <input name="post_id" type="hidden"  value="<%= post._id %>">
                                                     <input name="comment_email"type="hidden" value="<%=comment.email %>">
                                                     <input name="comment_id" type="hidden" value="<%= comment._id %>">
@@ -653,7 +653,7 @@ function showdialogw(data){
 
 <script>
 
-$("#myform2").on("submit",function(e){
+function doreply(form){
         e.preventDefault()
 alert("run")
    
@@ -687,7 +687,7 @@ alert("run")
     return false;
 //})
 //})
-})
+}
 
 
 
