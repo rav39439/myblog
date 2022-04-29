@@ -394,11 +394,11 @@ function showdialogw(data){
                                         </div>
                                             <div class="col-md=3">
                                                 <form onsubmit="return doreply(this)">
-                                                    <input name="post_id"id="post_id" id="mypostid"   value="<%= post._id %>">
-                                                    <input name="comment_email"id="comment_email" value="<%= comment.email %>">
-                                                    <input name="comment_id"id="comment_id" value="<%= comment._id %>">
+                                                    <input name="post_id"id="post_id" type="hidden"  value="<%= post._id %>">
+                                                    <input name="comment_email"id="comment_email" type="hidden" value="<%= comment.email %>">
+                                                    <input name="comment_id"id="comment_id" type="hidden" value="<%= comment._id %>">
                                                 <div class="form-group">
-                                                    <input name="name"  id="username"class="form-control" value="<%= name %>"
+                                                    <input name="name"  id="username"class="form-control" type="hidden" value="<%= name %>"
                                                     placeholder="Enter name">
 
                                                 </div>
