@@ -250,7 +250,7 @@ document.getElementById("mainimg").setAttribute("src",data.src)
 
 
                                 
-var socket = io('https://newblogecomm.herokuapp.com//', { transports: ['websocket', 'polling', 'flashsocket'] });
+var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
  $(document).ready(function () {
     
     $("#myform1").on("submit",function(e){
@@ -390,43 +390,7 @@ $("#replies-" + reply.comment_id).append(html)
 
 <script>
 //$(document).ready(function () {
-    function doreply(form){
-        
-
-    //$(".myform2").on("submit",function(e){
-      //e.preventDefault()
-     
-    var formData = {
-  name: form.name.value,
- reply: form.reply.value,
- post_id: form.post_id.value,
- comment_id: form.comment_id.value,
- comment_email: form.comment_email.value,
-
-
-
-};
-
-//alert("ddd")
-    $.ajax({
-        url:"/do-reply",
-        method:"POST",
-        data:formData,
-        success:function(response){
-          
-           // alert(response.text)
-          formData._id=response._id
-          socket.emit("new_reply",formData)
-          form.name.value=""
-          form.reply.value=""
-         
-        }
-    })
-    return false;
-//})
-//})
-}
-//})
+   
 
 
 function showdialog(data){
@@ -520,7 +484,7 @@ function showdialogw(data){
                                             <% } %>
                                         </div>
                                             <div class="col-md=3">
-                                                <form onsubmit=" doreply(this)">
+                                                <form method="POST"id="myform2">
                                                     <input name="post_id" type="hidden"  value="<%= post._id %>">
                                                     <input name="comment_email"type="hidden" value="<%=comment.email %>">
                                                     <input name="comment_id" type="hidden" value="<%= comment._id %>">
@@ -688,6 +652,44 @@ function showdialogw(data){
     </div>
 
 <script>
+
+$("#myform2").on("submit",function(e){
+        e.preventDefault()
+alert("run")
+   
+     
+    var formData = {
+  name: $("#username").val(),
+ reply: $("#reply").val(),
+ post_id:$("#post_id").val(),
+ comment_id:$("#comment_id").val(),
+ comment_email:$("#comment_email").val(),
+
+
+
+};
+
+//alert("ddd")
+    $.ajax({
+        url:"/do-reply",
+        method:"POST",
+        data:formData,
+        success:function(response){
+          
+            alert(response._id)
+          formData._id=response._id
+          socket.emit("new_reply",formData)
+          form.name.value=""
+          form.reply.value=""
+         
+        }
+    })
+    return false;
+//})
+//})
+})
+
+
 
 //--------------------------------------uploading image--------------------------------------------------------------
 

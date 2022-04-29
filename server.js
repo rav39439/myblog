@@ -618,15 +618,7 @@ app.post("/do-reply",function(req,res){
                 read:"unread"
             }
         }
-    },function(error,document){
-        var transport = nodemailer.createTransport({
-            host: "smtp.mailtrap.io",
-            port: 2525,
-            auth: {
-              user: "f764040d9ae9f9",
-              pass: "899f7d7a54bf30"
-            }
-          });
+    });
         // var mailOptions={
         //     "from":"My Blog",
         //     "to":req.body.comment_email,
@@ -640,7 +632,7 @@ app.post("/do-reply",function(req,res){
         //     }) 
         //})
       
-    })
+
 })
 
 
