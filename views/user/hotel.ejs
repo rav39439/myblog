@@ -130,7 +130,7 @@
                             <div class="card my-4">
                                 <h5 class="card-header">Leave a comment</h5>
                                 <div class="card-body">
-                                    <form id="myform1">
+                                    <form method="POST"id="myform1">
                                         <input type="hidden" name="post_id" id="post_id"value="<%= post._id %>">
 
                                         <div class="form-group">
@@ -235,13 +235,11 @@ document.getElementById("myvideo").setAttribute("src",data.src)
 
                                 
 var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
- $(document).ready(function () {
-    alert("asdfaffs")
-    $("#myform1").submit(function(e){
+$(document).ready(function () {
+    
+    $("#myform1").on("submit",function(e){
  e.preventDefault()
 
-
- alert("Sdfafag")
  var myimage=imagePath;
  var myfile=filePath
 var myvideo=videoPath
@@ -258,21 +256,21 @@ filedetails:myfile,
 video:myvideo,
 };
 //
-    $.ajax({
+$.ajax({
         type: "POST",
         url: '/do-comment',
         data: formData,
         success: function(response)
         {
           
+          
 
             // user is logged in successfully in the back-end
             // let's redirect
         
             
-           
-          formData._id=response._id
-          //alert(formData.commentimage)
+            formData._id=response._id
+          alert(formData._id)
           socket.emit("new_comment",formData)
 
     
@@ -643,10 +641,11 @@ function showdialogw(data){
 
 function doreply(form){
        
+
+       
 alert("run")
    
-     
-    var formData = {
+var formData = {
   name: form.name.value,
  reply: form.reply.value,
  post_id:form.post_id.value,
@@ -658,12 +657,12 @@ alert("run")
 };
 
 alert("ddd")
-    $.ajax({
+$.ajax({
         url:"/do-reply",
         method:"POST",
         data:formData,
         success:function(response){
-          
+           // alert("run")
             alert(response._id)
           formData._id=response._id
           socket.emit("new_reply",formData)

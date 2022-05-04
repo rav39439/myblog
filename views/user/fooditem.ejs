@@ -142,7 +142,7 @@
                             <div class="card my-4">
                                 <h5 class="card-header">Leave a comment</h5>
                                 <div class="card-body">
-                                    <form method="POST" action="/do-comment"id="myform1">
+                                    <form method="POST"id="myform1">
                                         <input type="hidden" name="post_id" id="post_id"value="<%= post._id %>">
 
                                         <div class="form-group">
@@ -278,7 +278,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
 
 
                                 
- $(document).ready(function () {
+$(document).ready(function () {
     
     $("#myform1").on("submit",function(e){
  e.preventDefault()
@@ -298,7 +298,7 @@ filedetails:myfile,
 video:myvideo,
 };
 //
-    $.ajax({
+$.ajax({
         type: "POST",
         url: '/do-comment',
         data: formData,
@@ -311,13 +311,14 @@ video:myvideo,
         
             
            
-          formData._id=response._id
-          //alert(formData.commentimage)
+            formData._id=response._id
+          alert(formData._id)
           socket.emit("new_comment",formData)
 
     
        }
    });
+  
    return false;
    
  });
