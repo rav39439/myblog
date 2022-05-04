@@ -605,7 +605,7 @@ alert("run")
         data:formData,
         success:function(response){
           
-            alert(formData)
+            alert(response._id)
           formData._id=response._id
           socket.emit("new_reply",formData)
           form.name.value=""
