@@ -51,7 +51,7 @@
                             
                           <div>
                           
-                          <img src="/images/<%=elem%>" alt="" style="width:100px;height:100px" onclick="setimage(this)">
+                          <img src="/image/<%=elem%>" alt="" style="width:100px;height:100px" onclick="setimage(this)">
                           </div>
                           
                           
@@ -75,7 +75,7 @@
 
                         <% if(post.products.length!=null){ %> 
                             <% post.products.forEach(function(elem,index){ %>
-                                <img src="<%=elem.image%>" alt="<%=elem.description%>" style="width:100px;height:100px" id="mii<%=index%>">
+                                <img src="/image/<%=elem.image%>" alt="<%=elem.description%>" style="width:100px;height:100px" id="mii<%=index%>">
                                 <p id="description<%=index%>"style="display:none"><%=elem.description%></p>
                                 <p id="productname<%=index%>"style="display:none"><%=elem.productname%></p>
                                 <p id="company<%=index%>"style="display:none"><%=elem.company%></p>
@@ -192,67 +192,23 @@
                             <button type="click" class="btn btn-primary"id="mybutton">refresh</button>
                             <% } %> 
 
-                            
-                            <% friends.forEach(function(elem){ %> 
-
-
-                                <% if(elem.friendname==post.username){ %> 
-                                    <div class="card my-4">
-                                        <h5 class="card-header">Leave a comment</h5>
-                                        <div class="card-body">
-                                            <form method="POST" action="/do-comment"id="myform1">
-                                                <input type="hidden" name="post_id" id="post_id"value="<%= post._id %>">
+                       
+                                                
         
-                                                <div class="form-group">
-                                                    <input class="form-control" type="hidden"name="username" id="username" value="<%=name %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input readonly class="form-control" name="email" id="email" value="<%=post.email%> ">
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="3" name="comment"
-                                                        id="comment"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" name="image" id="image" value=<%=image%>>
-                                                </div>
-                                                <div class="form-group">
+                                               
         
-                                                    <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal"  id="submitform"type="button"onclick="showdialog(this)">
-                                                        Upload image
-                                                    </button>
-                                                </div>
-                                                <div class="form-group">
-        
-                                                    <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal1"  id="submitform"type="button"onclick="showdialog1(this)">
-                                                        Upload pdffile
-                                                    </button> -->
-                                                </div>
-        
-                                                <div class="form-group">
-        
-                                                    <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal2"  id="submitform"type="button"onclick="showdialogw(this)">
-                                                        Upload video
-                                                    </button> -->
-                                                </div>
+                                            
         
 
-                                                <button type="submit" class="btn btn-primary mt-2">submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <button type="click" class="btn btn-primary"id="mybutton">refresh</button>
+                                  
 
 
 
 
 
-                                    <% } %> 
-
-                       <% }) %> 
+                                 
 
                             <script>
-
 
 function setimage(data){
 
@@ -317,11 +273,11 @@ document.getElementById("myvideo").setAttribute("src",data.src)
 }
 
 
+const socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
 
 
 
                                 
-var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
  $(document).ready(function () {
     
     $("#myform1").on("submit",function(e){
@@ -430,6 +386,9 @@ if(comment.video){
                 $("#comments").prepend(html);
                 //alert("new comment")
 })
+
+
+
 socket.on("new_reply",function(reply){
 var html="";
 html+=' <div class="media mb-4 ml-4">';
@@ -724,16 +683,16 @@ function showdialogw(data){
 //--------------------------------------uploading image--------------------------------------------------------------
 
 function doreply(form){
-        e.preventDefault()
+      
 alert("run")
    
      
     var formData = {
-  name: $("#username").val(),
- reply: $("#reply").val(),
- post_id:$("#post_id").val(),
- comment_id:$("#comment_id").val(),
- comment_email:$("#comment_email").val(),
+  name: form.name.value,
+ reply: form.reply.value,
+ post_id:form.post_id.value,
+ comment_id:form.comment_id.value,
+ comment_email:form.comment_email.value,
 
 
 
@@ -746,7 +705,7 @@ alert("run")
         data:formData,
         success:function(response){
           
-            alert(response._id)
+            alert(formData)
           formData._id=response._id
           socket.emit("new_reply",formData)
           form.name.value=""
@@ -842,7 +801,7 @@ $.ajax({
   processData: false,
   success:function(response){
    
- // alert(response)
+ alert(formData)
   
     filePath=response;
         

@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <% if(post.image) { %>
-                    <img class="img-fluid rounded" src="image/<%= post.image %>" alt="myimage" width="500" height="600"id="mainimg"  >
+                    <img class="img-fluid rounded" src="/image/<%= post.image %>" alt="myimage" width="500" height="600"id="mainimg"  >
 
                     <% } else { %>
                         <img class="img-fluid rounded" src="http://placehold.it/1200x400" alt="">
@@ -151,63 +151,8 @@
                             <% } %> 
                           
 
-                            <% friends.forEach(function(elem){ %> 
+                          
 
-
-                                <% if(elem.friendname==post.username){ %> 
-                                    <div class="card my-4">
-                                        <h5 class="card-header">Leave a comment</h5>
-                                        <div class="card-body">
-                                            <form method="POST" action="/do-comment"id="myform1">
-                                                <input type="hidden" name="post_id" id="post_id"value="<%= post._id %>">
-        
-                                                <div class="form-group">
-                                                    <input class="form-control" type="hidden"name="username" id="username" value="<%=name %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input readonly class="form-control" name="email" id="email" value="<%=post.email%> ">
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="3" name="comment"
-                                                        id="comment"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" name="image" id="image" value=<%=image%>>
-                                                </div>
-                                                <div class="form-group">
-        
-                                                    <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal"  id="submitform"type="button"onclick="showdialog(this)">
-                                                        Upload image
-                                                    </button>
-                                                </div>
-                                                <div class="form-group">
-        
-                                                    <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal1"  id="submitform"type="button"onclick="showdialog1(this)">
-                                                        Upload pdffile
-                                                    </button> -->
-                                                </div>
-        
-                                                <div class="form-group">
-        
-                                                    <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal2"  id="submitform"type="button"onclick="showdialogw(this)">
-                                                        Upload video
-                                                    </button> -->
-                                                </div>
-        
-
-                                                <button type="submit" class="btn btn-primary mt-2">submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <button type="click" class="btn btn-primary"id="mybutton">refresh</button>
-
-
-
-
-
-                                    <% } %> 
-
-                       <% }) %> 
 
                             <script>
 
@@ -339,6 +284,9 @@ if(comment.video){
                 $("#comments").prepend(html);
                 //alert("new comment")
 })
+
+
+
 socket.on("new_reply",function(reply){
 var html="";
 html+=' <div class="media mb-4 ml-4">';
@@ -399,7 +347,7 @@ function showdialogw(data){
                                     <div class="media mb-4">
                                         <%if(comment.image){%>
 
-                                            <img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px" src="image/<%= comment.image %>" alt="">
+                                            <img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px" src="/image/<%=comment.image%>" alt="">
                                        <% } else { %>
 
                                      <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> 
@@ -635,16 +583,16 @@ function showdialogw(data){
 
 //--------------------------------------uploading image--------------------------------------------------------------
 function doreply(form){
-        e.preventDefault()
+        
 alert("run")
    
      
     var formData = {
-  name: $("#username").val(),
- reply: $("#reply").val(),
- post_id:$("#post_id").val(),
- comment_id:$("#comment_id").val(),
- comment_email:$("#comment_email").val(),
+  name: form.name.value,
+ reply: form.reply.value,
+ post_id:form.post_id.value,
+ comment_id:form.comment_id.value,
+ comment_email:form.comment_id.value,
 
 
 
@@ -657,7 +605,7 @@ alert("run")
         data:formData,
         success:function(response){
           
-            alert(response._id)
+            alert(formData)
           formData._id=response._id
           socket.emit("new_reply",formData)
           form.name.value=""

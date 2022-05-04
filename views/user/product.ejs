@@ -250,7 +250,8 @@ document.getElementById("mainimg").setAttribute("src",data.src)
 
 
                                 
-var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
+///var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
+var socket = io("http://localhost:3000/api", { transports: ['websocket', 'polling', 'flashsocket'] });
  $(document).ready(function () {
     
     $("#myform1").on("submit",function(e){
@@ -309,6 +310,52 @@ socket.on("pagerefresh",()=>{
     //alert("asdfsfadf")
     location.reload()   
 })
+
+
+function doreply(form){
+//alert("run")
+   alert(form.reply.value)
+     
+    var formData = {
+  name: form.name.value,
+ reply: form.reply.value,
+ post_id:form.post_id.value,
+ comment_id:form.comment_id.value,
+ comment_email:form.comment_email.value,
+
+
+
+};
+
+
+
+    $.ajax({
+        url:"/do-reply",
+        method:"POST",
+        data:formData,
+        success:function(response){
+          
+            alert(response._id)
+          formData._id=response._id
+         
+          form.name.value=""
+          form.reply.value=""
+          socket.emit("new_reply1",formData)
+         
+        }
+    })
+    return false;
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -419,7 +466,7 @@ function showdialogw(data){
                                     <div class="media mb-4">
                                         <%if(comment.image){%>
 
-                                            <img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px" src="image/<%= comment.image %>" alt="">
+                                            <img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px" src="/image/<%=comment.image%>" alt="">
                                        <% } else { %>
 
                                      <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> 
@@ -431,7 +478,7 @@ function showdialogw(data){
                                                 <%= comment.username %>
                                             </h5>
 <% if (comment.commentimage){ %>
-   <a href="/wholeimage?image=<%= comment.commentimage %>"> <img class="border"style="width:300px;height:300px;" src="/image/<%= comment.commentimage %>"alt=""></a>
+   <a href="/wholeimage?image=<%= comment.commentimage %>"> <img class="border"style="width:300px;height:300px;" src="/image/<%=comment.commentimage%>"alt=""></a>
 
 <%} %>
 <% if (comment.file){ %>
@@ -485,16 +532,16 @@ function showdialogw(data){
                                         </div>
                                             <div class="col-md=3">
                                                 <form onsubmit="return doreply(this)">
-                                                    <input name="post_id" type="hidden"  value="<%= post._id %>">
-                                                    <input name="comment_email"type="hidden" value="<%=comment.email %>">
-                                                    <input name="comment_id" type="hidden" value="<%= comment._id %>">
+                                                    <input name="post_id" type="hidden" id="post_id" value="<%= post._id %>">
+                                                    <input name="comment_email"type="hidden" id="comment_email" value="<%=comment.email %>">
+                                                    <input name="comment_id" type="hidden" id="comment_id" value="<%= comment._id %>">
                                                 <div class="form-group">
-                                                    <input name="name" type="hidden"class="form-control" value="<%= name %>"
+                                                    <input name="name" type="hidden" id="name"class="form-control" value="<%= name %>"
                                                     placeholder="Enter name">
 
                                                 </div>
                                                 <div class="form-group">
-                                                    <textarea name="reply" class="form-control" placeholder="Enter reply">
+                                                    <textarea name="reply" class="form-control" id="reply" placeholder="Enter reply">
 
                                                     </textarea>
                                                 </div>
@@ -653,41 +700,6 @@ function showdialogw(data){
 
 <script>
 
-function doreply(form){
-        e.preventDefault()
-alert("run")
-   
-     
-    var formData = {
-  name: $("#username").val(),
- reply: $("#reply").val(),
- post_id:$("#post_id").val(),
- comment_id:$("#comment_id").val(),
- comment_email:$("#comment_email").val(),
-
-
-
-};
-
-//alert("ddd")
-    $.ajax({
-        url:"/do-reply",
-        method:"POST",
-        data:formData,
-        success:function(response){
-          
-            alert(response._id)
-          formData._id=response._id
-          socket.emit("new_reply",formData)
-          form.name.value=""
-          form.reply.value=""
-         
-        }
-    })
-    return false;
-//})
-//})
-}
 
 
 

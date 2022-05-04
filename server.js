@@ -104,8 +104,8 @@ var formidable = require('formidable');
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-     origin: "https://newblogecomm.herokuapp.com/",
-      //origin: "http://localhost:3000",
+     //origin: "https://newblogecomm.herokuapp.com/",
+      origin:"http://localhost:3000",
       credentials: true
     }
   })
@@ -602,7 +602,11 @@ console.log(post.image)
 
 app.post("/do-reply",function(req,res){
     var reply_id=ObjectId()
-   // console.log(req.body.comment_email)
+   console.log(req.body.comment_id)
+   console.log(req.body.post_id)
+   console.log(req.body.reply)
+   console.log(req.body.name)
+   console.log(req.session.profileimage)
     blog.collection("posts").updateOne({
         "_id":ObjectId(req.body.post_id),
         "comments._id":ObjectId(req.body.comment_id)
@@ -619,7 +623,7 @@ app.post("/do-reply",function(req,res){
             }
         }
     }, function(err,data){
-        console.log("the rply")
+       // console.log("the rply")
         console.log(reply_id)
         res.json({
             "text":"successfully replied",
@@ -1193,7 +1197,7 @@ app.post("/do-comment",function(req,res){
    // console.log(req.body.comment)
     blog.collection("posts").update({"_id":ObjectId(req.body.post_id)},{
         $push:{
-            "comments":{_id:comment_Id,username: req.body.username, comment:req.body.comment, email:req.body.email,image:req.session.profileimage,commentimage:req.body.commentimage,file:req.body.filedetails,video:req.body.video}
+            "comments":{_id:comment_Id,username: req.body.username, comment:req.body.comment, email:req.body.email,image:req.session.profileimage,file:req.body.filedetails,video:req.body.video}
             
         }
     },function (error,post){
@@ -1953,6 +1957,10 @@ socket.on('ptitle',function(title,room){
         io.emit("new_comment",comment)
     })
     socket.on("new_reply",function(reply){
+        console.log(reply)
+        io.emit("new_reply",reply)
+    })
+    socket.on("new_reply1",function(reply){
         console.log(reply)
         io.emit("new_reply",reply)
     })
