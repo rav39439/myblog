@@ -1427,7 +1427,7 @@ blog.collection("users").findOne({
     "_id": ObjectId(req.session._id)
 },function(error,data){
 console.log(data)
-    res.render("user/Editprofilepic",{image:data.image,currentuserimage:data.profileimage})
+    res.render("user/Editprofilepic",{image:data.image,currentuserimage:req.session.profileimage})
 
 })
 
@@ -2292,7 +2292,7 @@ app.get("/ordersplaced",isAuth,function(req,res){
 
     "_id":ObjectId(req.session._id)
   },function(err,data){
-      res.render("user/ordersplaced.ejs",{user:data,newuser:JSON.stringify(data)})
+      res.render("user/ordersplaced.ejs",{user:data,newuser:JSON.stringify(data),currentuserimage:req.session.profileimage})
   })  
 })
 app.get("/yourorders",isAuth,function(req,res){
@@ -2301,7 +2301,7 @@ app.get("/yourorders",isAuth,function(req,res){
     "_id":ObjectId(req.session._id)
   },function(err,data){
       //console.log(data)
-      res.render("user/yourorders.ejs",{user:data})
+      res.render("user/yourorders.ejs",{user:data,currentuserimage:req.session.profileimage})
   })  
 })
 

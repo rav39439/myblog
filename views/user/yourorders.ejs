@@ -28,11 +28,16 @@ table.test {
 
 </style>
 <body>
+
+
+    <%-include('header')%> 
+
+
     <% if(typeof(user.yourorders)!='undefined'){ %> 
 
 
 
-        <table class="test">
+        <table class="test"style="margin-top:70px;">
 <tr>
     <th>userid</th>
 <th>orderplacedid</th>
@@ -71,6 +76,11 @@ table.test {
 
 
         <script>
+
+document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+
+
+
 
 for(let i=0;i<4;i++){
 

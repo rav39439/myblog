@@ -222,8 +222,9 @@ document.getElementById("mainimg").setAttribute("src",data.src)
 // let newid=""
 // let company=""
 for(let i=0;i<20;i++){
+
+    if( document.getElementById("mii"+i)){
     document.getElementById("mii"+i).addEventListener('click',function(e){
-console.log(e)
         let data=e.target.src
         document.getElementById("mainimg").setAttribute("src",data)
       let description= document.getElementById("description"+i).innerText
@@ -241,17 +242,14 @@ console.log(e)
            document.getElementById("mydelete").innerHTML=`<a href="/deleteproduct?productid=${newid}&postid=${postid}">deleteproduct</a>`;
 
        }
-       console.log(description)
-       console.log(productname)
-       console.log(company)
-       console.log(userid)
-       console.log(newid)
+      
 
         document.getElementById("myinfo").innerHTML=`<h3>${productname}</h3><br><p>${company}</p><br><p>${description}</p><br><p>${timesordered}</p><br>
         <a href="/newmakeorder?productid=${newid}&userid=${userid}&postid=${postid}">Put it and order</a>`
 
 
     })
+} 
 }
 
 // function setimage1(data){
@@ -394,15 +392,15 @@ socket.on("new_reply",function(reply){
 var html="";
 html+=' <div class="media mb-4 ml-4">';
 
-   // if(reply.image){
+   if(reply.image){
 
-      //  html+='<img class="d-flex mr-3 rounded-circle" src="" alt=""> ';
+    html+=`<img class="d-flex mr-3 rounded-circle" src="/image/${reply.image}" alt="">`;
 
-  //  }
-    //else{
+   }
+    else{
         html+='<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> ';
 
-  //  }
+    }
     
     html+='  <div class="media-body" style="margin-left:40px">';
         html+='<h5 class="mt-0">';
