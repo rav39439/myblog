@@ -210,7 +210,7 @@ app.get("/home",isAuth,function(req,res){
 })
 
 
-app.get("/home1",isAuth,function(req,res){
+app.get("/home1",function(req,res){
   blog.collection("posts").find().sort({_id:1}).toArray(function(error,posts){
     res.render("admin/home1.ejs",{posts:posts,currentuserimage:req.session.profileimage})
 })
