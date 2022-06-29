@@ -2907,13 +2907,13 @@ app.post("/test1",function(req,res){
 })
 
 app.post("/mychat",function(req,res){
-    res.render('admin/chat.ejs',{username:req.body.username,roomid:req.body.roomid})   
+    res.render('admin/chat.ejs',{username:req.session.username,roomid:req.body.roomid})   
 
 })
 
 app.get("/mychat",function(req,res){
 
-    res.render("admin/room.ejs")
+    res.render("admin/room.ejs",{username:req.session.username})
 })
 
 
