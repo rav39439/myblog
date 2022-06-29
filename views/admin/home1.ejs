@@ -53,7 +53,7 @@
             <div class="col-lg-6">
                 <h2 class="card-title"><%= post.title %></h2>
                 <p class="card-text"><%= post.content %></p>
-                <a href="posts/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
+                <a href="/admin/posts/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
                 <p class="user ml-2"> posted by <%=post.username%></p>
 
 
@@ -84,7 +84,7 @@
             <div class="col-lg-6">
                 <h2 class="card-title"><%= post.title %></h2>
                 <p class="card-text"><%= post.about %></p>
-                <a href="posts/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
+                <a href="/admin/hotels/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
                 <p class="user ml-2"> posted by <%=post.username%></p>
 
 
@@ -115,7 +115,7 @@
             <div class="col-lg-6">
                 <h2 class="card-title"><%= post.title %></h2>
                 <p class="card-text"><%= post.detail1 %></p>
-                <a href="posts/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
+                <a href="/admin/posts/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
                 <p class="user ml-2"> posted by <%=post.username%></p>
 
 
@@ -146,7 +146,7 @@
             <div class="col-lg-6">
                 <h2 class="card-title"><%= post.title %></h2>
                 <p class="card-text"><%= post.about %></p>
-                <a href="posts/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
+                <a href="/admin/events/<%= post._id %>" class="btn btn-primary">Read more &rarr;</a>
                 <p class="user ml-2"> posted by <%=post.username%></p>
 
 
@@ -155,7 +155,7 @@
     </div>
     <div class="card-footer text-muted">
         <%= post.createdAt %><body>
-            <a href="#">start bootstrap</a>
+            <a href="#">Footer</a>
        
     </div>
 </div>

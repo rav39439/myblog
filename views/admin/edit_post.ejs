@@ -6,8 +6,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+
+
+#new62{
+
+width: 300px;
+margin-right: 500px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+#new62{
+
+
+width:300px;
+
+margin-right:-160px;
+
+}
+}
+
+
+    </style>
 </head>
-<div>
+
+
+
+<div id="new62">
     <div class="container-fluid"style="margin-top:100px;">
         <form onsubmit=" doEditPost(this)">
             <div class="form-group">
@@ -59,7 +88,8 @@
 
 
 <script>
-   document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
+  
+   document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
 
     var postId='<%= post._id %>'
     var image='<%= post.image %>'

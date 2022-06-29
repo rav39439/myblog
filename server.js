@@ -89,7 +89,7 @@ var mytransporter=nodemailer.createTransport(sendgridtransport({
           next()
       }
       else{
-          res.redirect('/login')
+          res.send(`<h1>Please login or Register to continue viewing the posts</h1>`)
       }
   }
 
@@ -420,7 +420,6 @@ app.post("/register",function(req,res){
 
 
 if(!req.session.email){
-console.log(req.body.email)
     
     payload={
         username:req.body.username,
@@ -447,9 +446,8 @@ console.log(req.body.email)
             if(error){
                console.log(error)
             }else{
-                res.send("verification email is sent to your mail")
-                console.log("verificartion email is sent")
-                //console.log(req.body.email)
+                //res.send("verification email is sent to your mail")
+              // console.log("verification mail is sent")
     
             }
        })
@@ -541,7 +539,8 @@ console.log(post.image)
 
 app.get("/admin/posts/:id",isAuth,function(req,res){
     
-    console.log(req.session)
+    console.log("hgffffffffffffffffffffffffffffffffffffffffffffffffffffj")
+    
     blog.collection("posts").findOne({"_id":ObjectId(req.params.id)}, function(error,post){
 res.render("user/product",{post:post,name:req.session.username,"image":req.session.profileimage,userid:req.session._id,adminrule:req.session.adminrule,"friends":req.session.friendlist})
 console.log(post.image)

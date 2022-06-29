@@ -1,16 +1,50 @@
 <%- include ('header') %>
 
 
+
+
+
+
+
+
 <head>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
+
+<style>
+
+#new67{
+
+width: 300px;
+margin-right: 500px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+#new67{
+
+
+width:300px;
+
+margin-right:-160px;
+
+}
+}
+
+
+</style>
+
+
+
 </head>
-<div>
+<div id="new67">
     <div class="container-fluid"style="margin-top:100px;">
-        <p id="oldimages"><%=images%></p>
-        <p id="oldvideos"><%=videos%></p>
+        <p style="display:none"id="oldimages"><%=images%></p>
+        <p  style="display:none" id="oldvideos"><%=videos%></p>
         <form id="myformi"method="POST">
             <div class="form-group">
                 <label>Title</label>
@@ -116,7 +150,8 @@ function showdialog(data){
     $(data.id).show()
 }
 
-   document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
+  // document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
+  document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
 
     var postId='<%= post._id %>'
    

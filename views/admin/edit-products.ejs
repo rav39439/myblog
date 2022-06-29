@@ -13,17 +13,42 @@
     margin-left:0;
 }
 
+#new69{
+
+width: 300px;
+margin-right: 500px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+#new69{
+
+
+width:300px;
+
+margin-right:-160px;
+
+}
+}
+
+
+
+
+
+
     </style>
 </head>
 
 
-<%- include ('header2.ejs') %>
+<%- include ('header.ejs') %>
 
 
 <body>
     
 
-<div>
+<div id="new69">
     <div class="container-fluid" style="margin-top:100px;">
         
         <form id="myformi"method="POST">
@@ -138,7 +163,8 @@ function showdialog(data){
     $(data.id).show()
 }
 
-   document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
+   ///document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="<%=currentuserimage%>"alt="">`
+   document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
 
     var postId='<%=post._id%>'
    
