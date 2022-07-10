@@ -48,7 +48,7 @@
                                  
                                <div>
                                
-                               <img src="<%=elem%>" alt="" style="width:100px;height:100px" onclick="setimage(this)">
+                               <img src="/image/<%=elem%>" alt="" style="width:100px;height:100px" onclick="setimage(this)">
                                </div>
                                
                                
@@ -72,16 +72,16 @@
 
 
                             <p class="lead">
-                                <%= post.about %>
+                                  <span style="font-family:'Courier New', Courier, monospace"><b>About : </b></span><%= post.about %>
                             </p>
                             <p class="lead">
-                                <%= post.timing %>
+                                 <span style="font-family:'Courier New', Courier, monospace"><b>Venue : </b></span> <%= post.timing %>
                             </p>
                             <p class="lead">
-                                <%= post.location %>
+                                 <span style="font-family:'Courier New', Courier, monospace"><b> Location : </b> </span><%= post.location %>
                             </p>
                             <p class="lead">
-                                <%= post.details %>
+                                 <span style="font-family:'Courier New', Courier, monospace"><b>Details : </b></span> <%= post.details %>
                             </p>
                             <% if(typeof(post.likers)!='undefined'){ %> 
 

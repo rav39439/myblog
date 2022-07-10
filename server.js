@@ -103,8 +103,8 @@ var formidable = require('formidable');
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-     origin: "https://newblogecomm.herokuapp.com/",
-      //origin:"http://localhost:3000",
+    origin: "https://newblogecomm.herokuapp.com/",
+      ///origin:"http://localhost:3000",
       credentials: true
     }
   })
@@ -145,6 +145,10 @@ app.use("/public",express.static(__dirname +"/public"))
 let gfs
 conn.once('open', () => {
     
+
+    gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+        bucketName: 'uploads'
+      });
     gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
    
@@ -1073,7 +1077,7 @@ console.log(images)
 
 
 
-app.post("/do-edit-events",deleteinitial,function(req,res){
+app.post("/do-edit-events",function(req,res){
 console.log("do edit post runnign")
 
 var images=[]
@@ -1081,6 +1085,7 @@ if(req.body.images.length!=0){
      images=JSON.parse(req.body.images)
 
 }else{
+    console.log(req.body)
     images=[]
 }
     blog.collection("posts").updateOne({
@@ -1089,10 +1094,10 @@ if(req.body.images.length!=0){
         $set:{
             "title":req.body.title,
             "details":req.body.details,
-            "place":req.body.place,
+            "location":req.body.place,
             "timing":req.body.timing,
             "about":req.body.about,
-            "videos":req.body.videos,
+            "videos":JSON.parse(req.body.videos),
             "images":images,
             "image":images[0]
         },function(error,post){
@@ -1149,7 +1154,7 @@ else{
 
 app.post("/do-edit-fooditems",deleteinitial,function(req,res){
 console.log("do edit post runnign")
-
+console.log(req.body)
 var images=[]
 if(req.body.images.length!=0){
      images=JSON.parse(req.body.images)
@@ -1173,13 +1178,15 @@ else{
     },{
         $set:{
             "title":req.body.title,
-            "items":req.body.facilities1,
-            "categories":req.body.facilities2,
-            "location":req.body.rooms,
+            "items":req.body.items,
+            "categories":req.body.categories,
+            "location":req.body.location,
             "about":req.body.about,
             "images":images,
             "videos":videos,
-            "image":images[0]
+            "image":images[0],
+            "facilities1":req.body.facilities1,
+            "facilities2":req.body.facilities2
         },function(error,post){
             res.send("Updated Successfully")
         }
@@ -1886,8 +1893,8 @@ io.on("connection",function(socket){
         socket.broadcast.emit("new_post3",formData);
     })
     socket.on('join-room',function(roomid,cb){
-        socket.join(room)
-
+        socket.join(roomid)
+console.log("user has joined")
         room=roomid
         io.to(room).emit('new_message',`${cb} has joined`)
          //cb(`joined ${room}`)
@@ -1900,12 +1907,13 @@ room=roomid
             console.log(blob)
             let buff = new Buffer.from(blob);
             let base64data = buff.toString('base64');
-            console.log(chat)
+            //console.log(chat)
         io.to(room).emit('newevent',username,chat,base64data)
         }
         else{
 
-           console.log(chat)
+           console.log("My chat is" +" "+chat)
+           console.log("Myroom"+ " "+room)
             io.to(room).emit('newevent',username,chat,blob)
         }
 
@@ -2391,18 +2399,17 @@ blog.collection("posts").updateOne({
 
 
 
-app.post("/do-upload-productimage",function(req,res){
-    console.log("upload image is runing")
-    var formData = new formidable.IncomingForm();
-formData.parse(req,function(error,fields,files){
-    var oldPath=files.file.path;
-    var newPath="public/images/"+files.file.name;
-    console.log(newPath)
-    fs.copyFile(oldPath, newPath, function(err){
-       // res.render("admin/posts",{imagepath:newPath})
-       res.send("/"+ newPath)
-    })
-})
+app.post("/do-upload-productimage",upload.single('file'),function(req,res){
+//     console.log("upload image is runing")
+//     var formData = new formidable.IncomingForm();
+// formData.parse(req,function(error,fields,files){
+//     var oldPath=files.file.path;
+//     var newPath="public/images/"+files.file.name;
+//     console.log(newPath)
+//     fs.copyFile(oldPath, newPath, function(err){
+       res.send(req.file.filename)
+   // })
+///})
 })
 
 
@@ -2754,8 +2761,10 @@ gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if image
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
       // Read output to browser
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
+     // const readstream = gfs.createReadStream(file.filename);
+      //readstream.pipe(res);
+      const readStream = gridFSBucket.openDownloadStream(file._id);     // console.log(res.headers)
+      readStream.pipe(res);
     } else {
       res.status(404).json({
         err: 'Not an image'
@@ -2811,10 +2820,18 @@ app.post('/video',getfileid, (req, res) => {
   function deleteinitial(req,res,next){
 
     console.log("deleteinital")
+
+
+
    if((JSON.parse(req.body.oldimages).length!=0)||(JSON.parse(req.body.oldvideos)).length!=0){
 
-
-      var videos=JSON.parse(req.body.oldvideos)
+if(typeof(req.oldvideos)!='undefined'){
+    var videos=JSON.parse(req.body.oldvideos)
+}
+else{
+    var videos=[]
+}
+     
       var images=JSON.parse(req.body.oldimages)
       //console.log(videos)
 //       console.log(images)
@@ -2904,7 +2921,7 @@ app.post("/test1",function(req,res){
 })
 
 app.post("/mychat",function(req,res){
-    res.render('admin/chat.ejs',{username:req.session.username,roomid:req.body.roomid})   
+    res.render('admin/chat.ejs',{username:req.session.username,roomid:req.body.roomid,currentuserimage:req.session.profileimage})   
 
 })
 

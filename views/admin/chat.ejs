@@ -145,29 +145,37 @@ width: 600px;
 
 
 <script>
-   //const socket = io('http://localhost:3000')      
+document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+
+   //var socket = io('http://localhost:3000')      
     const socket = io('https://newblogecomm.herokuapp.com', { transports: ['websocket', 'polling', 'flashsocket'] });
-    
+   
     let roomid=document.getElementById('roomid').innerText
     let username=document.getElementById('username').innerText
+ 
+
     let newhtml=""
     socket.emit('join-room', roomid, username )
+    
     socket.on('new_message',function(message){
+
+      console.log("this is my chat app")
       console.log(message)
       //Array.users.forEach(function(elem){
         newhtml+=`<p>${message}</p>`;
-
+      
       //})
     })
     document.getElementById("er").innerHTML=newhtml
-
-
-
+ 
     let html=""
     
     $( "#myform" ).submit(function( e ) {
+     
     e.preventDefault()
     var chat =e.target.children[0].children[1].value
+
+   
     //localStorage.setItem("chat",chat)
     var fileinfo =e.target.children[1].children[1].files[0]
     // if(fileinfo){
@@ -238,6 +246,8 @@ width: 600px;
     }
     else{
     blob=""
+    console.log(chat)
+
     socket.emit("message",roomid,username,chat,blob)
     
     }
@@ -339,7 +349,7 @@ width: 600px;
   
     socket.on('newevent',function(username,chat,base64String){
         if(base64String!=""){
-    console.log("yuoru chat is "+chat)
+    console.log("your chat is "+chat)
             html+=`
           
     <div id="frontfoot" ><span style="font-size:22px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"> ${username}</span>:<span style="font-size:24px;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">${username}</span>: <span style="font-size:24px;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"><i>${chat}?</i></span><br> 
@@ -354,7 +364,7 @@ width: 600px;
     
         }
         else{
-    
+    console.log("yoru chat  isssssssssssssssssssssssssss")
             html+=`
     <div id="myfoot"> <span style="font-size:22px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">${username}</span>:<span style="font-size:24px;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"><i>${chat}</i></span> </div><br>`
     

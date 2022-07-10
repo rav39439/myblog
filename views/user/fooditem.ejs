@@ -43,14 +43,14 @@
                         <% } %> 
                         <br>
                       
-
-                        <div class="d-inline-flex mt-2" style="margin-left:2px;overflow-x: scroll;width:700px">
+                   <div class="d-inline-flex mt-2" style="margin-left:2px;overflow-x: scroll;width:700px">
                            <% if(post.images!=null){ %> 
                             <% post.images.forEach(function(elem){ %>
                           
                             
                           <div>
-                          
+                            
+                                  
                           <img src="/image/<%=elem%>" alt="" style="width:100px;height:100px" onclick="setimage(this)">
                           </div>
                           
@@ -71,8 +71,10 @@
                         </div>
 
                         <hr>
+                        <h3>Fooditems</h3>
+                       
                         <div class="d-inline-flex mt-2" style="margin-left:2px;overflow-x: scroll;width:700px">
-
+                         
                         <% if(post.products.length!=null){ %> 
                             <% post.products.forEach(function(elem,index){ %>
                                 <img src="/image/<%=elem.image%>" alt="<%=elem.description%>" style="width:100px;height:100px" id="mii<%=index%>">
@@ -95,19 +97,19 @@
                             <p>Posted on <%=post.createdAt %></p>
                             <p>Posted by <%=post.username %></p>
                             <p class="lead">
-                                <%=post.about%>
+                                <span style="font-family:'Courier New', Courier, monospace"><b>About : </b></span><%=post.about%>
                             </p>
                             <hr>
 
                             
                             <p class="lead">
-                                <%=post.categories%>
+                                <span style="font-family:'Courier New', Courier, monospace"><b>Categories : </b></span> <%=post.categories%>
                             </p>
                             <p class="lead">
-                                <%=post.items%>
+                               <span style="font-family:'Courier New', Courier, monospace"><b>Items : </b></span> <%=post.items%>
                             </p>
                             <p class="lead">
-                                <%=post.location%>
+                               <span style="font-family:'Courier New', Courier, monospace"><b>Location : </b></span> <%=post.location%>
                             </p>
 
 

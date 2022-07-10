@@ -505,7 +505,6 @@ if(e.target.value=="fooditems"){
 
 
 var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
-//var imagepath=""
      $(document).ready(function () {
      
     $("#myform").on("submit",function(e){
@@ -668,7 +667,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
           
      var formData ={
         title:$("#name3").val(),
-    location:$("location").val(),
+    location:$("#location").val(),
         items:$("#items").val(),
         categories:$("#categories").val(),
         type:$("#type4").val(),

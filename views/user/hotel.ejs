@@ -88,19 +88,19 @@
                             <p>Posted on <%=post.createdAt %></p>
                             <p>Posted by <%=post.username %></p>
                             <p class="lead">
-                                <%=post.about%>
+                                <span style="font-family:'Courier New', Courier, monospace"><b>about : </b></span> <%=post.about%>
                             </p>
                             <hr>
 
                             
-                            <p class="lead">main facilites:
-                                <%=post.facilities1%>
-                            </p>
-                            <p class="lead">other facilites:
-                                <%=post.facilities2%>
+                            <p class="lead">
+                                <span style="font-family:'Courier New', Courier, monospace"><b>Facilties : </b></span> <%=post.facilities1%>
                             </p>
                             <p class="lead">
-                                <%=post.rooms%>
+                                <span style="font-family:'Courier New', Courier, monospace"><b>More Facilities : </b></span> <%=post.facilities2%>
+                            </p>
+                            <p class="lead">
+                                <span style="font-family:'Courier New', Courier, monospace"><b>Rooms : </b></span> <%=post.rooms%>
                             </p>
 
                             <hr>
@@ -119,9 +119,9 @@
                                
 
                            <% if(post.username==name){ %> 
-                                <div>
+                                <!-- <div>
                                     <a href="/addinfo?postid=<%=post._id%>">Add product</a>
-                                </div>
+                                </div> -->
                             <% } %> 
 
                             <hr>

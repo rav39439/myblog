@@ -56,22 +56,22 @@ margin-right:-160px;
             </button>
             <div class="form-group">
                 <label>about</label>
-                <textarea name="about" class="form-control" id="about" value=<%=post.about%>><%=post.about%></textarea>
+                <textarea name="about" class="form-control" id="about" ><%=post.about%></textarea>
               
             </div>
             <div class="form-group">
                 <label>items </label>
-                <textarea name="items" class="form-control" id="items" value=<%=post.items%>><%=post.items%></textarea>
+                <textarea name="items" class="form-control" id="items" ><%=post.items%></textarea>
               
             </div>
             <div class="form-group">
                 <label>categories</label>
-                <textarea name="categories" class="form-control" id="categories" value=<%= post.categories %>><%= post.categories %></textarea>
+                <textarea name="categories" class="form-control" id="categories" ><%= post.categories %></textarea>
               
             </div>
             <div class="form-group">
                 <label>location</label>
-                <textarea name="location" class="form-control" id="location" value=<%= post.location %>><%= post.location %></textarea>
+                <textarea name="location" class="form-control" id="location" ><%= post.location %></textarea>
               
             </div>
            
@@ -174,7 +174,7 @@ function showdialog(data){
 
         alert("posting")
         $.ajax({
-            url:"/do-edit-hotels",
+            url:"/do-edit-fooditems",
             method:"POST",
             data:formData,
 success:function(response){
