@@ -99,13 +99,12 @@ var mytransporter=nodemailer.createTransport(sendgridtransport({
 
 
 var formidable = require('formidable');
-//app.use(formidable())
-//const fs=require('fs')
+
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-     //origin: "https://newblogecomm.herokuapp.com/",
-      origin:"http://localhost:3000",
+     origin: "https://newblogecomm.herokuapp.com/",
+      //origin:"http://localhost:3000",
       credentials: true
     }
   })
@@ -119,7 +118,6 @@ const bcrypt = require('bcrypt');
 var bodyParser=require("body-parser")
 var ObjectId=require("mongodb").ObjectId
 app.use(bodyParser.urlencoded())
-//app.use(bodyParser.json())
 app.get('/public', express.static('public'));
 
 
@@ -140,14 +138,12 @@ app.use("/public",express.static(__dirname +"/public"))
 
 
 
- // Create mongo connection
  const conn = mongoose.createConnection("mongodb+srv://Ravkkrrttyy:xDKSBRRDI8nkn13w@cluster1.2pfid.mongodb.net/blog?retryWrites=true&w=majority",{ useNewUrlParser: true ,useUnifiedTopology: true} );
  
    
 //--------------------------gridfs-------------------------------------------------------------
 let gfs
 conn.once('open', () => {
-    // Init stream
     
     gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
@@ -1030,15 +1026,17 @@ app.post("/do-edit-products",deleteinitial,function(req,res){
 
 console.log("the post id is"+req.body.videos)
 console.log("the post id is"+req.body.images)
-console.log("the post id is"+req.body.image)
+///console.log("the post id is"+req.body.image)
 //console.log(JSON.parse(req.body.images))
 //var images=[]
 console.log(req.body.length)
 var images=[]
 var videos=[]
+console.log(req.body.images)
+
 if(req.body.images.length!=0){
      images=JSON.parse(req.body.images)
-
+console.log("images is there")
 }else{
     images=[]
 }
