@@ -85,7 +85,7 @@
                             </p>
                             <% if(typeof(post.likers)!='undefined'){ %> 
 
-                                <button onclick="dolike()">likers
+                                <button onclick="dolike()" id="ebutton">likers
                
                                     <%=post.likers.length%>  </button>
                                          <% } %> 
@@ -664,6 +664,7 @@ data: formData,
 success:function(response){
 
 // alert(response)
+document.getElementById('ebutton').innerHTML=`<p>likers${response.post.likers.length}</p>`
 
 imagePath=response;
     

@@ -89,7 +89,7 @@
                             </p>
                             <% if(typeof(post.likers)!='undefined'){ %> 
 
-                            <button onclick="dolike()">likers
+                            <button onclick="dolike()" id="cbutton">likers
            
                                 <%=post.likers.length%>  </button>
      <% } %> 
@@ -848,11 +848,15 @@ data: formData,
 
 success:function(response){
 
-alert("dhgfdhgf")
+//alert("dhgfdhgf")
+document.getElementById('cbutton').innerHTML=`<p>likers${response.post.likers.length}</p>`
 
 imagePath=response;
     
-$("#myModal").modal("hide")
+
+
+
+//$("#myModal").modal("hide")
 }
 })
 }

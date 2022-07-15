@@ -672,7 +672,7 @@ function dolike(){
   
   success:function(response){
       //if(response.likers.length==1)
-   document.getElementById("mylikes").innerText="likes"+"  "+response.post.likers.length
+   document.getElementById("mylikes").innerText=`<p>likers${response.post.likers.length}</p>`
 alert(response.post.likers.length)
   
     imagePath=response;
