@@ -127,9 +127,9 @@
                             
                             <p id="newuserid"style="display: none;"><%=userid%></p>
                             <% if(typeof(post.likers)!='undefined'){ %> 
-                            <button onclick="dolike()">likers
+                        <button onclick="dolike()" id="abutton">
            
-                                <%=post.likers.length%>  </button>
+                            Likers<%=post.likers.length%>  </button>
                                 <% } %> 
      
      
@@ -217,6 +217,8 @@ function setimage(data){
 document.getElementById("myvideo").style.display="none"
 document.getElementById("mainimg").style.display="block"
 document.getElementById("mainimg").setAttribute("src",data.src)
+document.getElementById("myinfo").style.display="none"
+document.getElementById("mydelete").style.display="none"
 }
 
 // let description=""
@@ -246,9 +248,9 @@ for(let i=0;i<20;i++){
        }
       
 
-        document.getElementById("myinfo").innerHTML=`<h3>${productname}</h3><br><p>${company}</p><br><p>${description}</p><br><p>${timesordered}</p><br>
+        document.getElementById("myinfo").innerHTML=`<h3>${productname}</h3><br>     <p><span>Times ordered : </span>${timesordered}</p><br>
         <a href="/newmakeorder?productid=${newid}&userid=${userid}&postid=${postid}">Put it and order</a>`
-
+       /// <p><span>Userreview : </span>${description}</p><br> 
 
     })
 } 
@@ -866,9 +868,9 @@ data: formData,
 
 success:function(response){
 
-// alert(response)
-
-imagePath=response;
+ alert(response.post.likers.length)
+document.getElementById('abutton').innerHTML=`<p>likers${response.post.likers.length}</p>`
+imagePath=response.post.likers.length;
     
 $("#myModal").modal("hide")
 }

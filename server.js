@@ -2444,11 +2444,13 @@ app.post("/toggleLikePost",function(request,result){
                     })
                 } else{
                     var isLiked=false;
-                    console.log(post)
+                    //console.log(post)
                     for(var a=0;a<post.likers.length;a++){
                         var liker=post.likers[a];
-                        if(liker._id.toString() && user._id.toString()){
+                        if(liker._id.toString()== user._id.toString()){
                             isLiked=true;
+                            //console.log(liker._id.toString())
+                            //console.log(user._id.toString())
                             
 
                         }
@@ -2461,6 +2463,37 @@ $pull:{
     "likers":{ _id:request.session._id },
     
 }
+},function(error,res){
+
+    blog.collection("posts").findOne({
+        "_id":ObjectId(postid)
+
+        },function (error,post){
+            console.log("the newn liked post is this one")
+            console.log(post.likers.length)
+            console.log("the usr who liked it")
+            //console.log(user)
+            result.json({
+                "post":post,
+                "message":"You have liked a post"
+            })
+
+
+            blog.collection("users").updateOne({
+                "_id":ObjectId(request.session._id)
+                },{
+                $pull:{
+                    "notifications":{ _id:postid },
+                    
+                }
+                })
+
+            
+})  
+
+
+
+
 })
 
 } 
@@ -2471,7 +2504,7 @@ blog.collection("users").updateOne({
 },{
 $push:{
     "notifications":{
-        "_id":ObjectId(),
+        "_id":postid,
         "type":"photo_liked",
         "content":user.name + "has liked your photo",
         "profileImage":user.profileImage,
@@ -2498,7 +2531,7 @@ $push:{
                 console.log("the newn liked post is this one")
                 console.log(post.likers.length)
                 console.log("the usr who liked it")
-                console.log(user)
+                //console.log(user)
                 result.json({
                     "post":post,
                     "message":"You have liked a post"

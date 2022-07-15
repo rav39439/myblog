@@ -658,7 +658,7 @@ function getallmessages(){
          // alert("getmeessa")
           console.log("the data is")
           var data=response.data;
-          console.log(data)
+          //console.log(data)
         
         let html="";
         for(let i=0;i<data.length;i++){
@@ -697,9 +697,9 @@ function changeread(form){
 postid=$(form).attr("postid");
 commentid=$(form).attr("commentid");
 replyid=$(form).attr("replyid");
-console.log(postid)
-console.log(commentid)
-console.log(replyid)
+//console.log(postid)
+//console.log(commentid)
+//console.log(replyid)
 
 $.ajax({
         url:"/do-changeread",
@@ -717,7 +717,7 @@ $.ajax({
 } 
 
 function getfriends(){
-alert("Dassa")
+//alert("Dassa")
   $.ajax({
         url:"/getusers",
         method:"GET",

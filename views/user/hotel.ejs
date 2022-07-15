@@ -106,7 +106,7 @@
                             <hr>
                             <% if(typeof(post.likers)!='undefined'){ %> 
 
-                            <button onclick="dolike()">likers
+                            <button onclick="dolike()" id="bbutton">likers
            
                                 <%=post.likers.length%> </button>
                                 <% } %> 
@@ -114,7 +114,7 @@
                                 <p id="postid" style="display:none"><%=post._id%></p>
 
                             <div>
-                                <a href="/makeorder?postid=<%=post._id%>&userid=<%=userid%>">place order</a>
+                                <a href="/makeorder?postid=<%=post._id%>&userid=<%=userid%>">Place order for booking</a>
                                 </div>
                                
 
@@ -740,8 +740,11 @@ success:function(response){
 // alert(response)
 
 imagePath=response;
-    
-$("#myModal").modal("hide")
+document.getElementById('bbutton').innerHTML=`<p>likers${response.post.likers.length}</p>`
+   
+///$("#myModal").modal("hide")
+
+
 }
 })
 }
