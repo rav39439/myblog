@@ -1480,7 +1480,25 @@ function anothermiddle(req,res,next){
     "arrayFilters": [{ "outer._id":ObjectId(req.body.productid)}] 
 
 },function(err,data){
-    next()
+
+    blog.collection("posts").findOne({
+
+        "_id":ObjectId(req.body.postid)
+    
+    },function(err,post){
+
+console.log("this post isssssssssssssssssssssssssssssssssssssssssssssss")
+console.log(post.userid)
+        req.owner=post.userid
+        next()
+    })
+
+
+
+
+    
+
+   
 })
 
 //----------------------------------------------------------------------------------------
@@ -1528,7 +1546,7 @@ blog.collection("users").updateOne({
                 'userid':userid,
                 'userpl':userpl,          
                 'productname':req.body.productname,
-                'quantityordered':req.body.quantity,
+                'quantityordered':req.body.quantity1,
                 'addressfordelivery':req.body.address,
                 'status':"pending",
                 'read':"unread",
@@ -1549,7 +1567,7 @@ blog.collection("users").updateOne({
                     'productname':req.body.productname,
                     'ownerpl':ownerpl,
                     'ownerid':req.owner,
-                    'quantity':req.body.quantity,
+                    'quantity':req.body.quantity1,
                     'contactno':req.body.contactno,
                     'status':"pending",
                     'productid':req.body.productid
@@ -2186,8 +2204,7 @@ app.post("/roomcomment",function(req,res){
 
 
 function mymiddle(req,res,next){
-console.log("middleware is running")
-    console.log(req.body.postid)
+
     blog.collection("posts").findOne({
 
         "_id":ObjectId(req.body.postid)
@@ -2199,7 +2216,7 @@ console.log("middleware is running")
             })
         }
         else{
-            console.log(post)
+           
             req.owner=post.userid
             next()
     
@@ -2357,11 +2374,23 @@ console.log(req.body.ownerid)
     
     
     function(err,data){
-console.log("jhgjgj")
-        res.json({
+//console.log(data)
 
-            "message":"Your order has been removed"
-        })
+blog.collection("users").findOne({
+
+    "_id":ObjectId(req.session._id)
+  },function(err,data){
+     
+
+    res.json({
+
+        data:data
+    })
+
+  })  
+
+
+     
     })
     })
 })

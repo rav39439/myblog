@@ -78,7 +78,7 @@ table.test {
         <script>
 
 document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
-
+//console.log("<%=user%>");
 
 
 
@@ -91,18 +91,19 @@ document.getElementById("delete"+i).addEventListener("click",function(e){
     let ownerid=document.getElementById("ownerid"+i).innerText
        let userplacedid=document.getElementById("userplacedid"+i).innerText
        let ownerplacedid=document.getElementById("ownerplacedid"+i).innerText
-      alert(ownerid) 
-      alert(userplacedid) 
-      alert(ownerplacedid) 
+    //  alert(userplacedid) 
+     // alert(ownerplacedid) 
  var xhr = new XMLHttpRequest();
-alert("Dsafasfga")
+//alert("Dsafasfga")
 xhr.open("POST","/removeorder", true);
 
-xhr.onreadystatechange = function (result) {
+xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
  
                     // Print received data from server
-                   alert("done")
+                   // alert(JSON.parse(this.responseText)) 
+                   location.reload()
+
  
                 }
             };
