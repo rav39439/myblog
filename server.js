@@ -103,8 +103,8 @@ var formidable = require('formidable');
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
-    origin: "https://newblogecomm.herokuapp.com/",
-      ///origin:"http://localhost:3000",
+   origin: "https://newblogecomm.herokuapp.com/",
+      //origin:"http://localhost:3000",
       credentials: true
     }
   })
@@ -771,12 +771,12 @@ var videos=JSON.parse(req.body.videos)
     var about=req.body.about;
     var timing=req.body.timing;
     var now=new Date();
-    console.log(image);
+    //console.log(image);
     blog.collection("posts").insertOne({
         
         "username":req.session.username,
         "type":"events",
-        "image":newimages[0],
+        "image":newimage[0],
         "images":newimages,
         "userid":req.session._id,
         "videos":videos,
@@ -793,7 +793,7 @@ var videos=JSON.parse(req.body.videos)
         "createdAt": now,
         
         
-    },function(error,data){
+       },function(error,data){
         blog.collection('users').updateOne({
 
             "_id":ObjectId(req.session._id)
@@ -805,6 +805,10 @@ var videos=JSON.parse(req.body.videos)
                 
                 }
              }
+         },function(err,data){
+            res.json({
+                "message":"success"
+            })
          })
         
     })
@@ -1240,7 +1244,7 @@ let newvideos=[]
 
     let myfile =req.files
     myfile.forEach(function(elem){
-        if(elem.mimetype=="image/jpeg"){
+        if(elem.mimetype=="image/jpeg"|| elem.mimetype=='image/png'){
 
             newpath=elem.filename
             newarray.push(newpath)
@@ -1903,8 +1907,9 @@ io.on("connection",function(socket){
         socket.broadcast.emit("new_post1",formData);
     })
     socket.on("new_post2",function(formData){
-        //console.log(formData)
-        socket.broadcast.emit("new_post2",formData);
+        console.log("dssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        console.log(formData)
+        io.emit("new_post2",formData);
     })
     socket.on("new_post3",function(formData){
         //console.log(formData)
@@ -2821,7 +2826,7 @@ gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     }
 
     // Check if image
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+    if (file.contentType == 'image/jpeg' || file.contentType =='image/png') {
       // Read output to browser
      // const readstream = gfs.createReadStream(file.filename);
       //readstream.pipe(res);

@@ -348,9 +348,16 @@
     <a href="/posts/edit-events/<%=post._id%>" class="btn btn-warning btn-sm">Edit</a>
 </td>
 
+
+
+        </tr>
+
+        <tr>
+            <div id="newevents"></div>
         </tr>
         <% } %> 
    <% }) %>
+
 
 
    
@@ -504,6 +511,8 @@ if(e.target.value=="fooditems"){
 
 
 
+ // let socket = io('http://localhost:3000')
+
 var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
      $(document).ready(function () {
      
@@ -579,8 +588,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
               formData._id=response._id
              // var socket=io()
               socket.emit("new_post1",formData)
-
-                  
+             
            }
        });
      });
@@ -588,7 +596,8 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
 
         $("#myform2").on("submit",function(e){
      e.preventDefault()
-          
+   
+
      var formData = {
         title:$("#name2").val(),
         details:$("#details").val(),
@@ -601,7 +610,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
 
 
      }
-  
+
         $.ajax({
             type: "POST",
             url: '/do-post',
@@ -613,16 +622,74 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
                 // user is logged in successfully in the back-end
                 // let's redirect
                // alert(imagePath)
-                alert(response.text)
-               
+                alert(response.message)
+
               formData._id=response._id
              // var socket=io()
+
+
               socket.emit("new_post2",formData)
+
+              var html=""
+    
+
+
+                    
+                        
+
+document.getElementById("newevents").innerHTML=html;
+
+                  
+             
 
                   
            }
        });
+
+      
      });
+
+
+
+//      socket.on("new_post2",function(formData){
+//     var html=""
+// if(typeof(formData)!='undefined'){
+//     console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
+    
+
+//     html=`<td>${formData.title} </td>
+// <td>${formData.about}</td>
+// <td>
+//     <img src="/image/${formData.image}" style="width:300px;height:300px;">
+// </td>
+// <td>
+//     <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
+// </td>
+// `
+
+                    
+
+
+
+// document.getElementById("newevents").innerHTML=html;
+
+
+// }
+// else{
+//     document.getElementById("newevents").innerHTML=html
+// }
+// })
+
+
+
+
+
+
+
+
+
+
+
         $("#myform3").on("submit",function(e){
      e.preventDefault()
           
