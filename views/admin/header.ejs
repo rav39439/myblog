@@ -729,22 +729,22 @@ function getfriends(){
           let html="";
          // html+='<ul>';
           for (let i=0;i<friends.length;i++){
-            if(friends[i].status=="pending"){
+            if(friends[i].status=="pending" ){
 
 
-              if(friends[i].sender=="false"){
+              if(friends[i].sender=="false" && friends[i].friendname!=null){
 
                 html+=`<li data=${friends[i].friendname} ><a class="dropdown-item" href="#!">${friends[i].friendname}<button data=${friends[i].friendname} id=${friends[i]._id} onclick="acceptrequest(this)">pending</button></a></li>`;
 
               }
 
-              else{
+              if(friends[i].friendname!=null){
                 html+=`<li data=${friends[i].friendname} ><a class="dropdown-item" href="#!">${friends[i].friendname}<button data=${friends[i].friendname} id=${friends[i]._id}>pending</button></a></li>`;
 
               }
 html+=``
           }
-          else{
+          if(friends[i].friendname!=null){
 
             html+=`<li ><a class="dropdown-item" href="getpage/${friends[i].friendname}">${friends[i].friendname}</a></li>`
            }

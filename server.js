@@ -1656,7 +1656,9 @@ app.get("/charts",isAuth,function(request,result){
 })
 
 app.post( "/sendrequest",function(req,res){
-console.log(req.body.id)
+//console.log(req.body.id)
+
+
     blog.collection("users").updateOne({
         "_id":ObjectId(req.body.id)
     },{
@@ -1670,7 +1672,7 @@ console.log(req.body.id)
             }
         }
     },function(error,data){
-            console.log("Daasa")
+            //console.log("Daasa")
             blog.collection("users").updateOne({
                 "_id":ObjectId(req.session._id)
             },{
