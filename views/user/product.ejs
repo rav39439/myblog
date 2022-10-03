@@ -167,64 +167,7 @@
                             <% } %> 
 
 
-                            <% friends.forEach(function(elem){ %> 
-
-
-                                <% if(elem.friendname==post.username){ %> 
-                                    <div class="card my-4">
-                                        <h5 class="card-header">Leave a comment</h5>
-                                        <div class="card-body">
-                                            <form method="POST" action="/do-comment"id="myform1">
-                                                <input type="hidden" name="post_id" id="post_id"value="<%= post._id %>">
-        
-                                                <div class="form-group">
-                                                    <input class="form-control" type="hidden"name="username" id="username" value="<%=name %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input readonly class="form-control" name="email" id="email" value="<%=post.email%> ">
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="3" name="comment"
-                                                        id="comment"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" name="image" id="image" value=<%=image%>>
-                                                </div>
-                                                <div class="form-group">
-        
-                                                    <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal"  id="submitform"type="button"onclick="showdialog(this)">
-                                                        Upload image
-                                                    </button>
-                                                </div>
-                                                <div class="form-group">
-        
-                                                    <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal1"  id="submitform"type="button"onclick="showdialog1(this)">
-                                                        Upload pdffile
-                                                    </button> -->
-                                                </div>
-        
-                                                <div class="form-group">
-        
-                                                    <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal2"  id="submitform"type="button"onclick="showdialogw(this)">
-                                                        Upload video
-                                                    </button> -->
-                                                </div>
-        
-
-                                                <button type="submit" class="btn btn-primary mt-2">submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                  
-                                    <button type="click" class="btn btn-primary"id="mybutton">refresh</button>
-
-                                    <% } %> 
-
-
-
-                                   
-
-                       <% }) %> 
+                            
 
                             <script>
 
@@ -335,7 +278,6 @@ function doreply(form){
         data:formData,
         success:function(response){
           
-            alert(response._id)
           formData._id=response._id
          
           form.name.value=""
@@ -721,7 +663,6 @@ $.ajax({
   processData: false,
   success:function(response){
    
- // alert(response)
   
     imagePath=response;
         
@@ -884,5 +825,67 @@ $('video').click(function(e) {
 });
 
 //--------------------------------------------------------------------------------------------------
+
+
+
+
+//  friends.forEach(function(elem){ 
+
+
+//  if(elem.friendname==post.username){  
+//     <div class="card my-4">
+//         <h5 class="card-header">Leave a comment</h5>
+//         <div class="card-body">
+//             <form method="POST" action="/do-comment"id="myform1">
+//                 <input type="hidden" name="post_id" id="post_id"value="< post._id %>">
+
+//                 <div class="form-group">
+//                     <input class="form-control" type="hidden"name="username" id="username" value="<name %>">
+//                 </div>
+//                 <div class="form-group">
+//                     <input readonly class="form-control" name="email" id="email" value="<post.email%> ">
+//                 </div>
+//                 <div class="form-group">
+//                     <textarea class="form-control" rows="3" name="comment"
+//                         id="comment"></textarea>
+//                 </div>
+//                 <div class="form-group">
+//                     <input type="hidden" class="form-control" name="image" id="image" value=<image%>>
+//                 </div>
+//                 <div class="form-group">
+
+//                     <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal"  id="submitform"type="button"onclick="showdialog(this)">
+//                         Upload image
+//                     </button>
+//                 </div>
+//                 <div class="form-group">
+
+//                     <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal1"  id="submitform"type="button"onclick="showdialog1(this)">
+//                         Upload pdffile
+//                     </button> -->
+//                 </div>
+
+//                 <div class="form-group">
+
+//                     <!-- <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal2"  id="submitform"type="button"onclick="showdialogw(this)">
+//                         Upload video
+//                     </button> -->
+//                 </div>
+
+
+//                 <button type="submit" class="btn btn-primary mt-2">submit</button>
+//             </form>
+//         </div>
+//     </div>
+  
+//     <button type="click" class="btn btn-primary"id="mybutton">refresh</button>
+
+//     } %
+
+
+
+   
+
+// }) 
 </script>
     <%- include("footer") %>

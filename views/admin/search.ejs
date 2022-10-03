@@ -17,6 +17,7 @@
 
     
 </div class="bg-light" style="margin-top:400px;">
+<h1 id="myfriends"style="display:none"><%=myfriendlist%></h1>
     <% users.forEach(function(user){ %>
        
         <ul style="margin-top:300px">
@@ -42,7 +43,25 @@ $("li").on('click', function() {
      
     var mydata = $(this).attr("data");
     var myid = $(this).attr("id");
-     alert(myid)
+     //alert(myid)
+ let mynewfriends=JSON.parse(document.getElementById('myfriends').innerText)
+ //alert(mynewfriends)
+ console.log(mynewfriends)
+ let k=0
+mynewfriends.forEach(function(element){
+if(element.friendname==mydata){
+    k=1
+  return false  
+}
+else{
+    return true
+}
+})
+
+
+if(k==0){
+
+
     $.ajax({
         type: "POST",
         url: "/sendrequest",
@@ -52,6 +71,10 @@ $("li").on('click', function() {
             
         }
     });
+
+}else{
+    alert("This is already a friend")
+}
 })
 
 

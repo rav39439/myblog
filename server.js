@@ -190,7 +190,6 @@ app.set("view engine","ejs")
 var MongoClient=require("mongodb").MongoClient;
 const { fstat } = require("fs");
 const { request } = require("express");
-//const { MongoRuntimeError } = require("mongodb")
 
 MongoClient.connect(process.env.MONGOURI,{useNewUrlParser:true},function(error,client){
     var blog=client.db("blog")
@@ -1409,7 +1408,9 @@ app.get("/dogetusers",isAuth,function(req,res){
 "username":req.query.inputuser
 
    }).toArray(function(error,users){
-    res.render("admin/search.ejs",{"users":users})
+
+
+    res.render("admin/search.ejs",{"users":users,myfriendlist:JSON.stringify(req.session.friendlist)})
 })
 })
 

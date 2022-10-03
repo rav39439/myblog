@@ -526,7 +526,6 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
      image: imagePath,
   
     };
-    alert(formData.image)
   
         $.ajax({
             type: "POST",
@@ -535,11 +534,6 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
             success: function(response)
             {
               
-  
-                // user is logged in successfully in the back-end
-                // let's redirect
-               // alert(imagePath)
-                alert(response.text)
                
               formData._id=response._id
              // var socket=io()
@@ -558,7 +552,6 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
           
     var formData = {
 
-        //files:$("input[type=file]").val(),
         title:$("#name1").val(),
         price:$("#price").val(),
         details1:$("#detail1").val(),
@@ -570,7 +563,6 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
         videos:videoPath1,
     }
 
-    alert(formData.files)
   
         $.ajax({
             type: "POST",
@@ -580,10 +572,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
             {
               
   
-                // user is logged in successfully in the back-end
-                // let's redirect
-               // alert(imagePath)
-                alert(response.text)
+                
                
               formData._id=response._id
              // var socket=io()
@@ -617,13 +606,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
             data: formData,
             success: function(response)
             {
-              
-  
-                // user is logged in successfully in the back-end
-                // let's redirect
-               // alert(imagePath)
-                alert(response.message)
-
+            
               formData._id=response._id
              // var socket=io()
 
@@ -632,16 +615,7 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
 
               var html=""
     
-
-
-                    
-                        
-
 document.getElementById("newevents").innerHTML=html;
-
-                  
-             
-
                   
            }
        });
@@ -681,15 +655,6 @@ document.getElementById("newevents").innerHTML=html;
 // })
 
 
-
-
-
-
-
-
-
-
-
         $("#myform3").on("submit",function(e){
      e.preventDefault()
           
@@ -711,12 +676,7 @@ document.getElementById("newevents").innerHTML=html;
             data: formData,
             success: function(response)
             {
-              
-  
-                // user is logged in successfully in the back-end
-                // let's redirect
-               // alert(imagePath)
-                alert(response.text)
+            
                
               formData._id=response._id
              // var socket=io()
@@ -750,15 +710,8 @@ document.getElementById("newevents").innerHTML=html;
             data: formData,
             success: function(response)
             {
-              
-  
-                // user is logged in successfully in the back-end
-                // let's redirect
-               // alert(imagePath)
-                alert(response.text)
-               
+                           
               formData._id=response._id
-             // var socket=io()
               socket.emit("new_post3",formData)
 
                   
@@ -791,7 +744,6 @@ e.preventDefault()
      processData: false,
      success:function(response){
       
-     alert("jhgjgj")
      
        imagePath=response;
            
@@ -820,7 +772,6 @@ e.preventDefault()
      processData: false,
      success:function(response){
       
-     alert("jhgjgj")
      
        imagePath1=response.data;
        videoPath1=response.videos;
@@ -849,7 +800,6 @@ e.preventDefault()
      processData: false,
      success:function(response){
       
-     alert(response.data)
      
        imagePath2=response.data;
        videoPath2=response.videos;
@@ -878,7 +828,6 @@ e.preventDefault()
      processData: false,
      success:function(response){
       
-     alert("jhgjgj")
      
        imagePath3=response.data;
        videoPath3=response.videos
@@ -907,7 +856,6 @@ e.preventDefault()
      processData: false,
      success:function(response){
       
-     alert("jhgjgj")
      
        imagePath4=response.data;
        videoPath4=response.videos
