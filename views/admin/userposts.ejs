@@ -86,6 +86,9 @@
 
 <script>
     document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+   
+   
+    //const socket = io('http://localhost:3000')
 
    //const socket = io('https://ecommerceblog.herokuapp.com/')
    var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
@@ -99,7 +102,7 @@ html+='<div class="card mb-4">'
             html+= '<div class="col-lg-6">'
                 html+=    '<a href="#">'
                    
-                        html+=  '<img class="img-fluid rounded" src="'/+formData.image+'" alt="">'
+                    html+=  `<img class="img-fluid rounded" src="/image/${formData.image}" alt="">`
                     
                         
                            
@@ -122,6 +125,8 @@ html+='<div class="card mb-4">'
                                     html+= '</div>'
                                     html+='</div>'
                                     $("#posts").prepend(html)
+
+
 });
 
 

@@ -23,14 +23,13 @@
             <li class="breadcrumb-item">
                 <a href="index.html">Home</a>
             </li>
-            <li class="breadcrumb-item active">Blog Home2</li>
+            <li class="breadcrumb-item active mt-5">Blog Home2</li>
         </ol>
         <div class="row">
             <div class="col-lg-8">
-               <%=post.image%> 
+             
                 <% if(post.image) { %>
                  
-                    <p><%=post.image%> </p>
                     <img class="img-fluid rounded" src="/image/<%= post.image %>" alt="myimage" width="700" height="600" id="mainimg" >
 
                     <% } else { %>

@@ -104,7 +104,7 @@ var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
    origin: "https://newblogecomm.herokuapp.com/",
-      //origin:"http://localhost:3000",
+     // origin:"http://localhost:3000",
       credentials: true
     }
   })
@@ -190,6 +190,7 @@ app.set("view engine","ejs")
 var MongoClient=require("mongodb").MongoClient;
 const { fstat } = require("fs");
 const { request } = require("express");
+const { callbackPromise } = require("nodemailer/lib/shared")
 
 MongoClient.connect(process.env.MONGOURI,{useNewUrlParser:true},function(error,client){
     var blog=client.db("blog")
@@ -654,13 +655,17 @@ app.post("/do-post",upload.array('images',10),function(req,res){
 var user=req.session.username;
 var useremail=req.session.email;
 
-
 if(req.body.type=="posts"){
 
     console.log("sdafd")
 
     var title=req.body.title;
-    var image=req.body.image;
+    if(req.body.image){
+        var image=req.body.image;
+
+    }else{
+        var image=""
+    }
     var content=req.body.content;
     var now=new Date();
     console.log(image);
@@ -686,6 +691,7 @@ if(req.body.type=="posts"){
         
         
     },function(error,data){
+
         blog.collection('users').updateOne({
 
             "_id":ObjectId(req.session._id)
@@ -697,7 +703,16 @@ if(req.body.type=="posts"){
                 
                 }
              }
-         })
+         },function(err,data){
+            //var mypost=blog.collection('posts').find({"image":image, "title":title})
+            console.log("asddddddddddddddddddddddd")
+            res.json({
+
+
+                "message":"success",
+                "_id":mypost._id
+            })
+            })
         
     })
 
@@ -706,13 +721,30 @@ if(req.body.type=="posts"){
 
 else if(req.body.type=="products"){
     console.log("sdafd1")
-console.log(req.body.images)
+    let image3=""
     var title=req.body.title;
     var company=req.body.company;
     var funct=req.body.funct;
     var price=req.body.price;
-   var newimage=JSON.parse(req.body.images)
-   var videos=JSON.parse(req.body.videos)
+    console.log("sdafd1ssssssssssss")
+
+    if(req.body.images.length>0){
+        var newimages=JSON.parse(req.body.images)
+image3=newimages[0]
+
+    }else{
+        var newimages=[]
+        image3=""
+    }
+    if(req.body.videos.length>0){
+        var videos=JSON.parse(req.body.videos)
+
+    }else{
+        var videos=[]
+    }
+
+   //var newimage=JSON.parse(req.body.images)
+   //var videos=JSON.parse(req.body.videos)
     var detail1=req.body.details1;
     var detail2=req.body.details2;
     var now=new Date();
@@ -723,14 +755,14 @@ console.log(req.body.images)
         "type":"products",
         "userid":req.session._id,
         "profileimage":req.session.profileimage,
-        "image":newimage[0],
+        "image":image3,
         "title":title,
         "email":useremail,
         "price":price,
         "funct":funct,
         "detail1":detail1,
         "detail2":detail2,
-        "images":newimage,
+        "images":newimages,
         "videos":videos,
         "company":company,
         "orders":[],
@@ -752,18 +784,35 @@ console.log(req.body.images)
                 
                 }
              }
-         })
+         },function(err,data){
+            res.json({
+                "message":"success",
+                "_id":data._id
+            })
         
+    })
     })
 
 }
 
 else if(req.body.type=="events"){
-
+var image=""
     console.log("sdafd2")
     console.log(req.body.images)
-var newimages=JSON.parse(req.body.images)
-var videos=JSON.parse(req.body.videos)
+    if(req.body.images.length>0){
+        var newimages=JSON.parse(req.body.images)
+image=newimages[0]
+
+    }else{
+        var newimages=[]
+        image=""
+    }
+    if(req.body.videos.length>0){
+        var videos=JSON.parse(req.body.videos)
+
+    }else{
+        var videos=[]
+    }
     var title=req.body.title;
     var locati=req.body.place;
     var details=req.body.details;
@@ -775,7 +824,7 @@ var videos=JSON.parse(req.body.videos)
         
         "username":req.session.username,
         "type":"events",
-        "image":newimage[0],
+        "image":image,
         "images":newimages,
         "userid":req.session._id,
         "videos":videos,
@@ -806,7 +855,8 @@ var videos=JSON.parse(req.body.videos)
              }
          },function(err,data){
             res.json({
-                "message":"success"
+                "message":"success",
+                "_id":data._id
             })
          })
         
@@ -815,11 +865,24 @@ var videos=JSON.parse(req.body.videos)
 }
 
 else if(req.body.type=="hotels"){
+    var image1=""
     console.log("sdafd3")
 
     var title=req.body.title;
-var newimages=JSON.parse(req.body.images)
-var videos=JSON.parse(req.body.videos)
+    if(req.body.images.length>0){
+        var newimages=JSON.parse(req.body.images)
+image1=newimages[0]
+    }else{
+        var newimages=[]
+        image1=""
+    }
+
+    if(req.body.videos.length>0){
+        var videos=JSON.parse(req.body.videos)
+
+    }else{
+        videos=[]
+    }
     var now=new Date();
     console.log(req.files);
     blog.collection("posts").insertOne({
@@ -830,7 +893,7 @@ var videos=JSON.parse(req.body.videos)
         "userid":req.session._id,
         "profileimage":req.session.profileimage,
         "title":title,
-        "image":newimages[0],
+        "image":image1,
         "rooms":req.body.rooms,
         "facilities1":req.body.facilities1,
         "facilities2":req.body.facilities2,
@@ -862,7 +925,13 @@ var videos=JSON.parse(req.body.videos)
                
                 }
              }
-         })
+         },function(err,data){
+            res.json({
+                "message":"success",
+                "_id":data._id
+
+            })
+            })
         
         })
         
@@ -870,11 +939,27 @@ var videos=JSON.parse(req.body.videos)
 }
     
 else {
-    console.log("fooditems")
 
+let image2=""
     var title=req.body.title;
-var newimages=JSON.parse(req.body.images)
-var videos=JSON.parse(req.body.videos)
+    if(req.body.images.length>0){
+        var newimages=JSON.parse(req.body.images)
+image2=newimages[0]
+    }else{
+        var newimages=[]
+        image2=""
+    }
+
+    if(req.body.videos.length>0){
+        var videos=JSON.parse(req.body.videos)
+
+    }else{
+        videos=[]
+    }
+
+
+//var newimages=JSON.parse(req.body.images)
+//var videos=JSON.parse(req.body.videos)
     var now=new Date();
     console.log(req.files);
     blog.collection("posts").insertOne({
@@ -885,7 +970,7 @@ var videos=JSON.parse(req.body.videos)
         "userid":req.session._id,
         "profileimage":req.session.profileimage,
         "title":title,
-        "image":newimages[0],
+        "image":image2,
         "items":req.body.items,
         "location":req.body.location,
         "categories":req.body.categories,
@@ -917,7 +1002,11 @@ var videos=JSON.parse(req.body.videos)
                
                 }
              }
-         })
+         },function(err,data){
+            res.json({
+                "message":"success"
+            })
+            })
         
         })
         
@@ -1657,7 +1746,8 @@ app.get("/charts",isAuth,function(request,result){
 })
 
 app.post( "/sendrequest",function(req,res){
-//console.log(req.body.id)
+console.log(req.session._id)
+console.log(req.body.id)
 
 
     blog.collection("users").updateOne({
@@ -1902,12 +1992,12 @@ io.on("connection",function(socket){
     console.log(socket.id)
     
     socket.on("new_post",function(formData){
-        //console.log(formData)
-        socket.broadcast.emit("new_post",formData);
+    console.log("this is running again")
+        io.emit("new_post",formData);
     })
     socket.on("new_post1",function(formData){
-        //console.log(formData)
-        socket.broadcast.emit("new_post1",formData);
+        console.log("this is running1")
+        io.emit("new_post1",formData);
     })
     socket.on("new_post2",function(formData){
         console.log("dssssssssssssssssssssssssssssssssssssssssssssssssssssss")
@@ -1916,8 +2006,18 @@ io.on("connection",function(socket){
     })
     socket.on("new_post3",function(formData){
         //console.log(formData)
-        socket.broadcast.emit("new_post3",formData);
+        console.log("this is running")
+
+        io.emit("new_post3",formData);
     })
+    socket.on("new_post4",function(formData){
+        //console.log(formData)
+        console.log("this is running3")
+
+        io.emit("new_post4",formData);
+    })
+
+    
     socket.on('join-room',function(roomid,cb){
         socket.join(roomid)
 console.log("user has joined")

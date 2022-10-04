@@ -46,6 +46,10 @@
                             <p class="lead">
                                 <%=post.content%>
                             </p>
+
+
+
+                            
                             <button onclick="dolike()"id="mylikes">likers
            
                            <%=post.likers.length%>  </button>
@@ -605,8 +609,7 @@ function dolike(){
   
   success:function(response){
       //if(response.likers.length==1)
-   document.getElementById("mylikes").innerText=`<p>likers${response.post.likers.length}</p>`
-alert(response.post.likers.length)
+   document.getElementById("mylikes").innerHTML=`<p>likers${response.post.likers.length}</p>`
   
     imagePath=response;
         

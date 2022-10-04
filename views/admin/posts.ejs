@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 
-<%- include ('header') %>
 
 
 <head>
@@ -33,6 +32,7 @@
 }
 </style>
 <body>
+    <%- include ('header') %>
 
 <!----------------------------------------------------------------------------------------->
 <div id="new21"style="width:900px;margin-top:100px" >
@@ -279,7 +279,7 @@
         <% if(post.type=="post"){ %> 
             <% if(post.username==username){ %> 
           
-        <tr>
+        <tr id="newPosts">
 <td><%= post.title %></td>
 <td><%= post.content %></td>
 <td>
@@ -309,7 +309,7 @@
     <% posts.forEach(function (post){ %>
         <% if(post.type=="products"){ %> 
          
-        <tr>
+        <tr id="newProduct">
 <td><%= post.title %></td>
 <td><%= post.detail1 %></td>
 <td>
@@ -338,7 +338,7 @@
     <% posts.forEach(function (post){ %>
         <% if(post.type=="events"){ %> 
           
-        <tr>
+        <tr id="newevents">
 <td><%= post.title %></td>
 <td><%= post.about %></td>
 <td>
@@ -352,9 +352,9 @@
 
         </tr>
 
-        <tr>
-            <div id="newevents"></div>
+        <tr >
         </tr>
+
         <% } %> 
    <% }) %>
 
@@ -374,7 +374,7 @@
     <% posts.forEach(function (post){ %>
         <% if(post.type=="hotels"){ %> 
           
-        <tr>
+        <tr id="newHotels">
 <td><%= post.title %></td>
 <td><%= post.about %></td>
 <td>
@@ -405,7 +405,7 @@
     <% posts.forEach(function (post){ %>
         <% if(post.type=="fooditems"){ %> 
           
-        <tr>
+        <tr id="newRest">
 <td><%= post.title %></td>
 <td><%= post.about %></td>
 <td>
@@ -511,14 +511,13 @@ if(e.target.value=="fooditems"){
 
 
 
- // let socket = io('http://localhost:3000')
+  //let socket = io('http://localhost:3000')
 
 var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
      $(document).ready(function () {
      
     $("#myform").on("submit",function(e){
      e.preventDefault()
-     alert("DSsfsf") 
     var formData = {
       title: $("#name").val(),
       type: $("#type").val(),
@@ -534,15 +533,50 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
             success: function(response)
             {
               
-               
-              formData._id=response._id
-             // var socket=io()
+               alert(response.myid)
+              formData._id=response.myid
               socket.emit("new_post",formData)
 
                   
            }
        });
      });
+
+
+     socket.on("new_post",function(formData){
+    var html=""
+if(typeof(formData)!='undefined'){
+    console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
+    
+
+    html=`<td>${formData.title} </td>
+<td>${formData.about}</td>
+<td>
+    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
+</td>
+`
+document.getElementById("newPosts").innerHTML=html;
+
+
+}
+else{
+    document.getElementById("newPosts").innerHTML=html
+}
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -582,6 +616,43 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
        });
      });
 
+     socket.on("new_post1",function(formData){
+    var html=""
+if(typeof(formData)!='undefined'){
+    console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
+    
+
+    html=`<td>${formData.title} </td>
+<td>${formData.details1}</td>
+<td>
+    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
+</td>
+`
+document.getElementById("newProduct").innerHTML=html;
+
+
+}
+else{
+    document.getElementById("newProduct").innerHTML=html
+}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         $("#myform2").on("submit",function(e){
      e.preventDefault()
@@ -613,9 +684,9 @@ var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket
 
               socket.emit("new_post2",formData)
 
-              var html=""
+//               var html=""
     
-document.getElementById("newevents").innerHTML=html;
+// document.getElementById("newevents").innerHTML=html;
                   
            }
        });
@@ -625,34 +696,29 @@ document.getElementById("newevents").innerHTML=html;
 
 
 
-//      socket.on("new_post2",function(formData){
-//     var html=""
-// if(typeof(formData)!='undefined'){
-//     console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
+     socket.on("new_post2",function(formData){
+    var html=""
+if(typeof(formData)!='undefined'){
+    console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
     
 
-//     html=`<td>${formData.title} </td>
-// <td>${formData.about}</td>
-// <td>
-//     <img src="/image/${formData.image}" style="width:300px;height:300px;">
-// </td>
-// <td>
-//     <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
-// </td>
-// `
-
-                    
-
+    html=`<td>${formData.title} </td>
+<td>${formData.about}</td>
+<td>
+    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
+</td>
+`
+document.getElementById("newevents").innerHTML=html;
 
 
-// document.getElementById("newevents").innerHTML=html;
-
-
-// }
-// else{
-//     document.getElementById("newevents").innerHTML=html
-// }
-// })
+}
+else{
+    document.getElementById("newevents").innerHTML=html
+}
+})
 
 
         $("#myform3").on("submit",function(e){
@@ -669,7 +735,7 @@ document.getElementById("newevents").innerHTML=html;
         videos:videoPath3,
      }
   
-     alert(formData.type)
+    ///
         $.ajax({
             type: "POST",
             url: '/do-post',
@@ -677,15 +743,47 @@ document.getElementById("newevents").innerHTML=html;
             success: function(response)
             {
             
-               
-              formData._id=response._id
-             // var socket=io()
+              //formData._id=response._id
+
               socket.emit("new_post3",formData)
 
-                  
+//               socket.emit("wantdata","I need data")
+// console.log("this is data")
+    //           var html=""
+    
+    // document.getElementById("newHotels").innerHTML=html;
            }
        });
      });
+
+
+
+
+     socket.on("new_post3",function(formData){
+    var html=""
+if(typeof(formData)!='undefined'){
+    console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
+    
+
+    html=`<td>${formData.title} </td>
+<td>${formData.about}</td>
+<td>
+    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
+</td>
+`
+document.getElementById("newHotels").innerHTML=html;
+
+
+}
+else{
+    document.getElementById("newHotels").innerHTML=html
+}
+})
+
+
 
 
 
@@ -712,12 +810,44 @@ document.getElementById("newevents").innerHTML=html;
             {
                            
               formData._id=response._id
-              socket.emit("new_post3",formData)
+              socket.emit("new_post4",formData)
 
                   
            }
        });
      });
+
+
+     socket.on("new_post4",function(formData){
+    var html=""
+if(typeof(formData)!='undefined'){
+    console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
+    
+
+    html=`<td>${formData.title} </td>
+<td>${formData.about}</td>
+<td>
+    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+</td>
+<td>
+    <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
+</td>
+`
+document.getElementById("newRest").innerHTML=html;
+
+
+}
+else{
+    document.getElementById("newRest").innerHTML=html
+}
+})
+
+
+
+
+
+
+
 
 
      document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`

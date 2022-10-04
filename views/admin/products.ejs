@@ -25,11 +25,11 @@
     }
     </style>
 </head>
-<div class="container mt-5" style="margin-top:80px;">
-    <h1 class="mt-5 mb-3" >Blog home
-    <small>Products</small>
+<div class="container mt-5" style="margin-top:150px;">
+    <h1 class="mt-5 mb-3" style="margin-top:150px;">Blog home Products
+  
     </h1>
-    <ol class="breadcrumb">
+    <ol class="breadcrumb"style="margin-top:50px;">
         <li class="breadcrumb-item">
            
         </li>
@@ -54,7 +54,7 @@
             </div>
             <div class="col-lg-6">
                 <h2 class="card-title"><%= post.title %></h2>
-                <p class="card-text"><%= post.details1 %></p>
+                <p class="card-text"><%= post.detail1 %></p>
                 <a href="posts/<%=post._id %>" class="btn btn-primary">Read more &rarr;</a>
                 <p class="user ml-2"> posted by <%=post.username%></p>
 
@@ -89,6 +89,7 @@
 
 <script>
     document.getElementById("myprofileimage").innerHTML=`<img class="d-flex mr-3 rounded-circle" style="height:50px;width:50px;"src="/image/<%=currentuserimage%>"alt="">`
+    //let socket = io('http://localhost:3000')
 
    //const socket = io('https://ecommerceblog.herokuapp.com/')
    var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
@@ -114,7 +115,7 @@ html+='<div class="card mb-4">'
                                     html+=   formData.title
                                     html+=   '</h2>'
                                 html+=  '<p class="card-text">'
-                                    html+= formData.detail1 
+                                    html+= formData.details1 
                                     html+=  ' </p>'
                                 html+=  '<a href="posts/'+formData._id+'" class="btn btn-primary">Read more &rarr;</a>'
                                 html+= ' </div>'
