@@ -94,8 +94,7 @@
     //const socket = io('https://ecommerceblog.herokuapp.com/')
     var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
 socket.on("new_post3",function(formData){
-
-    console.log("running")
+var newimages=JSON.parse(formData.images)
 var html=""
 html+='<div class="card mb-4">'
     html+=  '<div class="card-body">'
@@ -103,7 +102,7 @@ html+='<div class="card mb-4">'
             html+= '<div class="col-lg-6">'
                 html+=    '<a href="#">'
                    
-                        html+=  `<img class="img-fluid rounded" src="/image/${formData.image}" alt="">`
+                        html+=  `<img class="img-fluid rounded" src="/image/${newimages[0]}" alt="">`
                     
                         
                            

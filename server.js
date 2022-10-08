@@ -320,7 +320,7 @@ mydata=JSON.stringify(obj)
 app.get("/admin/posts",isAuth,function(req,res){
   //  if(req.session.admin){
       blog.collection("posts").find().toArray(function(error,posts){
-          res.render("admin/posts.ejs",{"posts":posts,currentuserimage:req.session.profileimage,username:req.session.username,adminrule:req.session.adminrule})
+          res.render("admin/posts.ejs",{"posts":posts,currentuserimage:req.session.profileimage,username:req.session.username,adminrule:req.session.adminrule,myposts:req.session.myposts})
       })
 
    //res.render("admin/posts")
@@ -330,8 +330,20 @@ app.get("/admin/posts",isAuth,function(req,res){
 })
 app.get("/admin/userposts",isAuth,function(req,res){
   //  if(req.session.admin){
+  
+
+  let b=[]
+ // console.log(req.session.myposts)
+  //Array.from(req.session.myposts).foreach(function(elem){
+  req.session.myposts.map(function(elem){
+    b.push(elem._id)
+  })
+  console.log(b)
       blog.collection("posts").find().toArray(function(error,posts){
-          res.render("admin/userposts.ejs",{"posts":posts,currentuserimage:req.session.profileimage,username:req.session.username})
+
+
+
+          res.render("admin/userposts.ejs",{"posts":posts,currentuserimage:req.session.profileimage,username:req.session.username,myposts:b})
       })
 
    //res.render("admin/posts")
@@ -1316,10 +1328,17 @@ app.post("/do-upload-image",upload.single('file'),function(req,res){
 //     console.log(newPath)
 //     fs.copyFile(oldPath, newPath, function(err){
 //        // res.render("admin/posts",{imagepath:newPath})
-       res.send(req.file.filename)
+res.json({
+    "data":req.file.filename,
+})
   //  })
 //})
 })
+
+
+
+
+
 app.post("/do-upload-image1",upload.array('file',10),function(req,res){
     console.log("upload image1 is runing")
     //console.log(req.files)
@@ -1717,7 +1736,7 @@ app.post("/",function(req,res){
             req.session.admin=user.Admin
             req.session.adminrule=user.adminrule
             
-          
+          req.session.myposts=user.posts
             req.session._id=user._id
             req.session.email=user.email
             req.session.username=user.username

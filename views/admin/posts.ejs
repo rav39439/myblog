@@ -511,7 +511,7 @@ if(e.target.value=="fooditems"){
 
 
 
-  //let socket = io('http://localhost:3000')
+ // let socket = io('http://localhost:3000')
 
 var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
      $(document).ready(function () {
@@ -617,6 +617,7 @@ else{
      });
 
      socket.on("new_post1",function(formData){
+        var newimages=JSON.parse(formData.images)
     var html=""
 if(typeof(formData)!='undefined'){
     console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
@@ -625,7 +626,7 @@ if(typeof(formData)!='undefined'){
     html=`<td>${formData.title} </td>
 <td>${formData.details1}</td>
 <td>
-    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+    <img src="/image/${newimages[0]}" style="width:300px;height:300px;">
 </td>
 <td>
     <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
@@ -697,6 +698,7 @@ else{
 
 
      socket.on("new_post2",function(formData){
+        var newimages1=JSON.parse(formData.images)
     var html=""
 if(typeof(formData)!='undefined'){
     console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
@@ -705,7 +707,7 @@ if(typeof(formData)!='undefined'){
     html=`<td>${formData.title} </td>
 <td>${formData.about}</td>
 <td>
-    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+    <img src="/image/${newimages1[0]}" style="width:300px;height:300px;">
 </td>
 <td>
     <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
@@ -760,6 +762,7 @@ else{
 
 
      socket.on("new_post3",function(formData){
+        var newimages2=JSON.parse(formData.images)
     var html=""
 if(typeof(formData)!='undefined'){
     console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
@@ -768,7 +771,7 @@ if(typeof(formData)!='undefined'){
     html=`<td>${formData.title} </td>
 <td>${formData.about}</td>
 <td>
-    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+    <img src="/image/${newimages2[0]}" style="width:300px;height:300px;">
 </td>
 <td>
     <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
@@ -819,6 +822,7 @@ else{
 
 
      socket.on("new_post4",function(formData){
+        var newimages3=JSON.parse(formData.images)
     var html=""
 if(typeof(formData)!='undefined'){
     console.log("sdagdagagdasgsagdagdsagsdagagasggagdagsagsagr")
@@ -827,7 +831,7 @@ if(typeof(formData)!='undefined'){
     html=`<td>${formData.title} </td>
 <td>${formData.about}</td>
 <td>
-    <img src="/image/${formData.image}" style="width:300px;height:300px;">
+    <img src="/image/${newimages3[0]}" style="width:300px;height:300px;">
 </td>
 <td>
     <a href="/posts/edit-events/${formData._id}" class="btn btn-warning btn-sm">Edit</a>
@@ -875,7 +879,7 @@ e.preventDefault()
      success:function(response){
       
      
-       imagePath=response;
+       imagePath=response.data;
            
        $("#myModal").modal("hide")
      }

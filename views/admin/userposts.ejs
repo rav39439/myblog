@@ -33,8 +33,10 @@
         </li>
     </ol>
     <div id="posts">
-<% posts.forEach(function(post){ %>  
-    <% if(post.type=="post"){ %> 
+<% posts.forEach(function(post){ %> 
+    
+    <%=myposts.includes(post._id)%>
+    <% if(post.type=="post"&& post.username==username){ %> 
        
     <div class="card mb-4">
     <div class="card-body">
@@ -93,8 +95,8 @@
    //const socket = io('https://ecommerceblog.herokuapp.com/')
    var socket = io('https://newblogecomm.herokuapp.com/', { transports: ['websocket', 'polling', 'flashsocket'] });
 socket.on("new_post",function(formData){
+    var newimages=JSON.parse(formData.images)
 
-    console.log("running")
 var html=""
 html+='<div class="card mb-4">'
     html+=  '<div class="card-body">'
@@ -102,7 +104,7 @@ html+='<div class="card mb-4">'
             html+= '<div class="col-lg-6">'
                 html+=    '<a href="#">'
                    
-                    html+=  `<img class="img-fluid rounded" src="/image/${formData.image}" alt="">`
+                    html+=  `<img class="img-fluid rounded" src="/image/${newimages[0]}" alt="">`
                     
                         
                            
