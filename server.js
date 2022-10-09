@@ -3119,7 +3119,27 @@ app.get("/mychat",function(req,res){
     res.render("admin/room.ejs",{username:req.session.username})
 })
 
+ app.get("/contact/:file",(req,res)=>{
+    console.log(req.params.file)
+    var myfile=`public/files/${req.params.file}`;
+    var filestream = fs.createReadStream(myfile);                  
+    res.writeHead(200, {
+       
+        "Content-Type":"application/pdf","Content-Transfer-Encoding": "binary"});
+    filestream.on('data', function(chunk) {                     
+        res.write(chunk);
+        //console.log(chunk.toString())
+    });
+    filestream.on('end', function() {
+        res.end();
+    });
 
+ })
+
+
+ app.get("/myprofile",(req,res)=>{
+    res.render("user/myprofile")
+ })
 //const port=process.env.APP_BASE_URL
 
 //-----------------------------------------------------------------------------------------------
