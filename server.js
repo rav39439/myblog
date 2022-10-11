@@ -3,7 +3,7 @@ const path=require('path')
 var session=require("express-session")
 const mongoose=require('mongoose')
 const jwt=require('jsonwebtoken')
-
+const cookieparser=require('cookie-parser')
 const cors = require('cors');
 const crypto = require('crypto');
 const nodemailer=require('nodemailer')
@@ -48,15 +48,7 @@ var mytransporter=nodemailer.createTransport(sendgridtransport({
 }))
 
 
-//app.use(cors())
 
-///const {
-  //  userJoin,
-  //  getCurrentUser,
-  //  userLeave,
-  //  getRoomUsers
- // } = require('./users');
-  
  //app.use(bodyParser.urlencoded({ extended: false }))
 
 
@@ -117,6 +109,7 @@ var io=require("socket.io")(http, {
 const bcrypt = require('bcrypt');
 var bodyParser=require("body-parser")
 var ObjectId=require("mongodb").ObjectId
+app.use(cookieparser())
 app.use(bodyParser.urlencoded())
 app.get('/public', express.static('public'));
 
@@ -183,8 +176,7 @@ conn.once('open', () => {
 
 //-----------------------------------------------------------------------------------------------
  
- //var nodemailer=require("nodemailer")
-//app.use(express.static(__dirname ,"/static"))
+ 
 app.set("view engine","ejs")
 
 var MongoClient=require("mongodb").MongoClient;
@@ -198,10 +190,8 @@ MongoClient.connect(process.env.MONGOURI,{useNewUrlParser:true},function(error,c
  
 app.get("/",function(req,res){
     console.log("slash lgoin is activated")
- //   blog.collection("posts").find().sort({_id:1}).toArray(function(error,posts){
       res.render("admin/login")
- //   res.render("user/home",{posts:posts})
-//})
+ 
 })
 app.get("/home",isAuth,function(req,res){
   blog.collection("posts").find().sort({_id:1}).toArray(function(error,posts){
@@ -248,11 +238,8 @@ app.get("/admin/dashboard",isAuth,function(req,res){
                 console.log(data)
 
     res.render("admin/dashboard",{mydata:adata,users:users,datas:JSON.stringify(data),currentuserimage:req.session.profileimage})
-   //console.log(data)
-   // console.log(data1)
-   // }else{
-     //   res.redirect("/admin")
-    //}
+  
+   
 })
 })
 })
@@ -267,8 +254,7 @@ else{
 
 app.post("/multipleuploads",upload.array('images',6),function(req,res){
 
-   // console.log(req.body.presentation)
-    //console.log(req.body.myinfo)
+   
 console.log(req.body.anotherinfo)
     var obj={}
     obj=req.files
@@ -318,23 +304,18 @@ mydata=JSON.stringify(obj)
 
 
 app.get("/admin/posts",isAuth,function(req,res){
-  //  if(req.session.admin){
       blog.collection("posts").find().toArray(function(error,posts){
           res.render("admin/posts.ejs",{"posts":posts,currentuserimage:req.session.profileimage,username:req.session.username,adminrule:req.session.adminrule,myposts:req.session.myposts})
       })
 
-   //res.render("admin/posts")
-//}else{
-    //res.redirect("/admin")
-    //}
+  
 })
 app.get("/admin/userposts",isAuth,function(req,res){
-  //  if(req.session.admin){
+
   
 
   let b=[]
- // console.log(req.session.myposts)
-  //Array.from(req.session.myposts).foreach(function(elem){
+ 
   req.session.myposts.map(function(elem){
     b.push(elem._id)
   })
@@ -613,11 +594,7 @@ console.log(post.image)
 
 app.post("/do-reply",function(req,res){
     var reply_id=ObjectId()
-   console.log(req.body.comment_id)
-   console.log(req.body.post_id)
-   console.log(req.body.reply)
-   console.log(req.body.name)
-   console.log(req.session.profileimage)
+  
     blog.collection("posts").updateOne({
         "_id":ObjectId(req.body.post_id),
         "comments._id":ObjectId(req.body.comment_id)
@@ -717,7 +694,6 @@ if(req.body.type=="posts"){
              }
          },function(err,data){
             //var mypost=blog.collection('posts').find({"image":image, "title":title})
-            console.log("asddddddddddddddddddddddd")
             res.json({
 
 
@@ -2768,11 +2744,7 @@ app.post("/declineorder",function(req,res){
 
 
         const _id = ObjectId(req.body.ownerplacedid);
-        console.log(req.body.ownerplacedid)
       
-        console.log(req.body.userplacedid)
-        console.log(req.body.userid)
-        console.log(req.session._id)
         
         blog.collection("users").updateOne({
     
@@ -3119,6 +3091,7 @@ app.get("/mychat",function(req,res){
     res.render("admin/room.ejs",{username:req.session.username})
 })
 
+
  app.get("/contact/:file",(req,res)=>{
     console.log(req.params.file)
     var myfile=`public/files/${req.params.file}`;
@@ -3138,9 +3111,91 @@ app.get("/mychat",function(req,res){
 
 
  app.get("/myprofile",(req,res)=>{
-    res.render("user/myprofile")
+    res.clearCookie('admin')
+
+    blog.collection("messages").find().sort({_id:1}).toArray(function(error,mymessages){
+        res.render("user/myprofile",{messages:mymessages})
+        console.log(mymessages)
+    })
+
+
  })
-//const port=process.env.APP_BASE_URL
+
+
+
+
+
+app.get("/myprofile/messagewithrav34897",(req,res)=>{
+    res.render('user/messaging')
+})
+
+app.get("/getform",(req,res)=>{
+
+    res.cookie('username',req.query.username,{
+        maxAge:60000 
+
+    })
+    res.cookie('password',req.query.password,{
+        maxAge:60000 
+    })
+    blog.collection("messages").find().sort({_id:1}).toArray(function(error,mymessages){
+        res.render("user/myprofile",{messages:mymessages})
+})
+})
+
+
+// const Cookiemiddle=(req,res,next)=>{
+//     if(req.cookies.username){
+//         next()
+//     } else{
+//         res.redirect("/message")
+//     }
+// }
+
+app.post("/myprofile/sendmessage",(req,res)=>{
+    console.log(req.body.comment)
+   if(req.cookies.username){
+
+//---------------------------------insert message in db--------------------------------------------------
+
+blog.collection("messages").insertOne({
+        
+    "username":req.cookies.username,
+    "password":req.cookies.password,
+    "message":req.body.comment,
+
+      
+},function(error,data){
+    res.json({
+
+        'username':req.cookies.username,
+        'password':req.cookies.password,
+        'comment':req.body.comment
+            })
+})
+   //---------------------------------------------------------------------------------------------
+    
+
+
+
+   } else{
+  
+
+  res.json({
+
+    'comment':"Not logged in"
+})
+   }
+       
+   
+})
+
+app.get("/terminatesession",(req,res)=>{
+    res.clearCookie('username')
+    res.clearCookie('password')
+    res.clearCookie('admin')
+    res.redirect("/myprofile")
+})
 
 //-----------------------------------------------------------------------------------------------
 http.listen(process.env.PORT||3000,function(){
