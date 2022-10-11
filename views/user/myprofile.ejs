@@ -115,14 +115,6 @@ a:active {
 
 
 
-
-
-
-
-
-
-
-
     <table width="850" border="0" align="center">
         <tr>
           <td>
@@ -816,7 +808,10 @@ a:active {
 
       <button class="btn btn-primary mt-3"><a class="nav-link" href="/terminatesession">Terminate session with Ravish</a></button>
       <button class="btn btn-primary mt-3"><a class="nav-link" href="/myprofile/messagewithrav34897">Start messaging Ravish</a></button>
+    </body>
 
+
+    
 <script>
 
 
@@ -870,7 +865,21 @@ document.getElementById('message').innerText =""
  });
 
 
+ let hj=""
+ if(document.getElementById("newmessage")){
+   hj=document.getElementById("newmessage").innerText
 
+ }
+let html=``
+if(hj!=null){
+ setTimeout(() => {
+   html=``
+   
+   document.getElementById("messagebody").innerHTML=html
+   
+   
+   }, 6000);
+  }
 
 
 </script>
@@ -878,5 +887,5 @@ document.getElementById('message').innerText =""
       </body>
       </html>
 
-</body>
+
 </html>

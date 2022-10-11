@@ -3114,7 +3114,7 @@ app.get("/mychat",function(req,res){
     res.clearCookie('admin')
 
     blog.collection("messages").find().sort({_id:1}).toArray(function(error,mymessages){
-        res.render("user/myprofile",{messages:mymessages})
+        res.render("user/myprofile",{messages:mymessages,messegeg:"You can send message now"})
         console.log(mymessages)
     })
 
@@ -3132,14 +3132,14 @@ app.get("/myprofile/messagewithrav34897",(req,res)=>{
 app.get("/getform",(req,res)=>{
 
     res.cookie('username',req.query.username,{
-        maxAge:60000 
+        maxAge:300000 
 
     })
     res.cookie('password',req.query.password,{
-        maxAge:60000 
+        maxAge:300000 
     })
     blog.collection("messages").find().sort({_id:1}).toArray(function(error,mymessages){
-        res.render("user/myprofile",{messages:mymessages})
+        res.render("user/myprofile",{messages:mymessages,messegeg:"You can send message now"})
 })
 })
 
