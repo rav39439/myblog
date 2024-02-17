@@ -3168,7 +3168,7 @@ app.get("/terminatesession",(req,res)=>{
 })
 
 //-----------------------------------------------------------------------------------------------
-http.listen(3000,function(){
+http.listen(process.env.PORT || 3000,function(){
         console.log("connected")
 
     })
