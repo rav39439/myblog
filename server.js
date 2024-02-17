@@ -22,14 +22,17 @@ const fs=require("fs")
 const multer  = require('multer')
 //const { ObjectId } = require('mongodb');
 var bodyParser = require('body-parser')
+
+const dotenv = require("dotenv");
 require('dotenv').config()
 app.use(bodyParser.json());
 const MongodbSession=require('connect-mongodb-session')(session);
 
+console.log(process.env.URL)
 
 
 const store=new MongodbSession({
-    uri:process.env.MONGOURI,
+    uri:process.env.URL,
     collection:"mysessions",
 
 })
@@ -38,13 +41,8 @@ const store=new MongodbSession({
 var mytransporter=nodemailer.createTransport(sendgridtransport({
     
     auth:{
-          api_key:'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',
-        
-
+          api_key:process.env.YURL,
     },
-   
-
-   
 }))
 
 
@@ -70,12 +68,6 @@ var mytransporter=nodemailer.createTransport(sendgridtransport({
 //-----------------------------------------------------------------------------------------------
 
 
-
-
-
-
-
-
   const isAuth=(req,res,next)=>{
       if(req.session.isAuth){
           next()
@@ -85,13 +77,7 @@ var mytransporter=nodemailer.createTransport(sendgridtransport({
       }
   }
 
-
-
-
-
-
 var formidable = require('formidable');
-
 var http=require("http").createServer(app)
 var io=require("socket.io")(http, {
     cors: {
@@ -101,22 +87,12 @@ var io=require("socket.io")(http, {
     }
   })
 
-
-
-
-
-
 const bcrypt = require('bcrypt');
 var bodyParser=require("body-parser")
 var ObjectId=require("mongodb").ObjectId
 app.use(cookieparser())
 app.use(bodyParser.urlencoded())
 app.get('/public', express.static('public'));
-
-
-
-
-
 app.use(express.static('public'));
 app.use("/public",express.static(__dirname +"/public"))
  app.use(session({
@@ -125,13 +101,12 @@ app.use("/public",express.static(__dirname +"/public"))
      resave: true, 
      saveUninitialized: true,
      cookie: { maxAge:24 * 60 * 60 * 1000 },
-
      store:store
  }))
 
 
 
- const conn = mongoose.createConnection("mongodb+srv://Ravkkrrttyy:xDKSBRRDI8nkn13w@cluster1.2pfid.mongodb.net/blog?retryWrites=true&w=majority",{ useNewUrlParser: true ,useUnifiedTopology: true} );
+ const conn = mongoose.createConnection(process.env.URL,{ useNewUrlParser: true ,useUnifiedTopology: true} );
  
    
 //--------------------------gridfs-------------------------------------------------------------
@@ -147,12 +122,12 @@ conn.once('open', () => {
    
     
 
-    console.log(gfs.collection.files)
+    // console.log(gfs.collection.files)
   });
 
 
   const storage = new GridFsStorage({
-    url: process.env.MONGOURI,
+    url: process.env.URL,
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         crypto.randomBytes(16, (err, buf) => {
@@ -171,25 +146,20 @@ conn.once('open', () => {
   });
 
   const upload = multer({ storage });
-
-
-
 //-----------------------------------------------------------------------------------------------
- 
- 
-app.set("view engine","ejs")
 
+app.set("view engine","ejs")
 var MongoClient=require("mongodb").MongoClient;
 const { fstat } = require("fs");
 const { request } = require("express");
 const { callbackPromise } = require("nodemailer/lib/shared")
 
-MongoClient.connect(process.env.MONGOURI,{useNewUrlParser:true},function(error,client){
+MongoClient.connect(process.env.URL,{useNewUrlParser:true},function(error,client){
     var blog=client.db("blog")
     console.log("DB connected")
  
 app.get("/",function(req,res){
-    console.log("slash lgoin is activated")
+    // console.log("slash lgoin is activated")
       res.render("admin/login")
  
 })
@@ -688,7 +658,7 @@ if(req.body.type=="posts"){
              $push:{
     
                 "posts":{
-                 "_id":data.insertedId,
+                 "_id":data?.insertedId,
                 
                 }
              }
@@ -698,7 +668,7 @@ if(req.body.type=="posts"){
 
 
                 "message":"success",
-                "_id":mypost._id
+                "_id":mypost?._id
             })
             })
         
@@ -3198,7 +3168,7 @@ app.get("/terminatesession",(req,res)=>{
 })
 
 //-----------------------------------------------------------------------------------------------
-http.listen(process.env.PORT||3000,function(){
+http.listen(3000,function(){
         console.log("connected")
 
     })
